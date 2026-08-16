@@ -1,37 +1,95 @@
 === whole app/build tree (top 2 levels) ===
 app/build
 app/build/generated
+app/build/generated/source
 app/build/generated/res
+app/build/generated/updated_navigation_xml
+app/build/generated/data_binding_base_class_source_out
 app/build/intermediates
+app/build/intermediates/runtime_symbol_list
+app/build/intermediates/merged_manifest
+app/build/intermediates/local_only_symbol_list
+app/build/intermediates/aar_metadata_check
 app/build/intermediates/stripped_native_libs
+app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar
 app/build/intermediates/data_binding_dependency_artifacts
 app/build/intermediates/native_debug_metadata
+app/build/intermediates/data_binding_layout_info_type_package
+app/build/intermediates/packaged_res
 app/build/intermediates/merged_native_libs
+app/build/intermediates/symbol_list_with_package_name
 app/build/intermediates/merged_jni_libs
 app/build/intermediates/nested_resources_validation_report
+app/build/intermediates/source_set_path_map
+app/build/intermediates/linked_resources_binary_format
+app/build/intermediates/navigation_json
 app/build/intermediates/cxx
+app/build/intermediates/data_binding_base_class_log_artifact
 app/build/intermediates/data_binding_layout_info_type_merge
+app/build/intermediates/compatible_screen_manifest
 app/build/intermediates/merged_res
 app/build/intermediates/incremental
+app/build/intermediates/compiled_navigation_res
+app/build/intermediates/manifest_merge_blame_file
+app/build/intermediates/merged_manifests
 app/build/intermediates/merged_res_blame_folder
+app/build/intermediates/stable_resource_ids_file
+app/build/intermediates/packaged_manifests
 app/build/intermediates/merged_test_only_native_libs
+app/build/outputs
+app/build/outputs/logs
 app/build/gmpAppId
 app/build/gmpAppId/debug.txt
 app/build/crashlytics
 app/build/crashlytics/debug
 === find app/build -name '*.apk' (anywhere) ===
 === does app/build/outputs exist? ===
-ls: cannot access 'app/build/outputs': No such file or directory
+total 12
+drwxr-xr-x 3 runner runner 4096 Aug 16 23:58 .
+drwxr-xr-x 7 runner runner 4096 Aug 16 23:58 ..
+drwxr-xr-x 2 runner runner 4096 Aug 16 23:58 logs
 === grep for CMake Error / error: in build_error.log ===
-62:ERROR: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Resource and asset merger: Duplicate resources
-63:ERROR: [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Resource and asset merger: Duplicate resources
-67:FAILURE: Build failed with an exception.
-71:> [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
-72:  [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
-113:Caused by: com.android.build.gradle.tasks.ResourceException: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
-114:[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
-240:Caused by: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
-241:[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+101:FAILURE: Build failed with an exception.
+107:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:3: AAPT: error: resource drawable/apptheme_btn_check_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_holo_light) not found.
+109:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:4: AAPT: error: resource drawable/apptheme_btn_check_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_holo_light) not found.
+111:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:5: AAPT: error: resource drawable/apptheme_btn_check_on_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_pressed_holo_light) not found.
+113:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:6: AAPT: error: resource drawable/apptheme_btn_check_off_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_pressed_holo_light) not found.
+115:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:7: AAPT: error: resource drawable/apptheme_btn_check_on_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_focused_holo_light) not found.
+117:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:8: AAPT: error: resource drawable/apptheme_btn_check_off_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_focused_holo_light) not found.
+119:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:9: AAPT: error: resource drawable/apptheme_btn_check_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_holo_light) not found.
+121:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:10: AAPT: error: resource drawable/apptheme_btn_check_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_holo_light) not found.
+123:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:11: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_holo_light) not found.
+125:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:12: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_holo_light) not found.
+127:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:13: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_focused_holo_light) not found.
+129:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:14: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_focused_holo_light) not found.
+131:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:15: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_holo_light) not found.
+133:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:16: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_holo_light) not found.
+135:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:3: AAPT: error: resource drawable/apptheme_btn_radio_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_holo_light) not found.
+137:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:4: AAPT: error: resource drawable/apptheme_btn_radio_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_holo_light) not found.
+139:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:5: AAPT: error: resource drawable/apptheme_btn_radio_on_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_pressed_holo_light) not found.
+141:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:6: AAPT: error: resource drawable/apptheme_btn_radio_off_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_pressed_holo_light) not found.
+143:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:7: AAPT: error: resource drawable/apptheme_btn_radio_on_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_focused_holo_light) not found.
+145:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:8: AAPT: error: resource drawable/apptheme_btn_radio_off_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_focused_holo_light) not found.
+313:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:3: AAPT: error: resource drawable/apptheme_btn_check_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_holo_light) not found.
+315:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:4: AAPT: error: resource drawable/apptheme_btn_check_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_holo_light) not found.
+317:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:5: AAPT: error: resource drawable/apptheme_btn_check_on_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_pressed_holo_light) not found.
+319:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:6: AAPT: error: resource drawable/apptheme_btn_check_off_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_pressed_holo_light) not found.
+321:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:7: AAPT: error: resource drawable/apptheme_btn_check_on_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_focused_holo_light) not found.
+323:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:8: AAPT: error: resource drawable/apptheme_btn_check_off_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_focused_holo_light) not found.
+325:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:9: AAPT: error: resource drawable/apptheme_btn_check_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_holo_light) not found.
+327:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:10: AAPT: error: resource drawable/apptheme_btn_check_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_holo_light) not found.
+329:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:11: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_holo_light) not found.
+331:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:12: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_holo_light) not found.
+333:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:13: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_focused_holo_light) not found.
+335:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:14: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_focused_holo_light) not found.
+337:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:15: AAPT: error: resource drawable/apptheme_btn_check_off_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_off_disabled_holo_light) not found.
+339:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:16: AAPT: error: resource drawable/apptheme_btn_check_on_disabled_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_check_on_disabled_holo_light) not found.
+341:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:3: AAPT: error: resource drawable/apptheme_btn_radio_on_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_holo_light) not found.
+343:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:4: AAPT: error: resource drawable/apptheme_btn_radio_off_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_holo_light) not found.
+345:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:5: AAPT: error: resource drawable/apptheme_btn_radio_on_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_pressed_holo_light) not found.
+347:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:6: AAPT: error: resource drawable/apptheme_btn_radio_off_pressed_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_pressed_holo_light) not found.
+349:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:7: AAPT: error: resource drawable/apptheme_btn_radio_on_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_on_focused_holo_light) not found.
+351:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:8: AAPT: error: resource drawable/apptheme_btn_radio_off_focused_holo_light (aka org.levimc.launcher:drawable/apptheme_btn_radio_off_focused_holo_light) not found.
 === 40 lines before/after first 'CMake Error' ===
 === gradle assembleDebug tasks (dry run) ===
 assemble - Assemble main outputs for all the variants.
