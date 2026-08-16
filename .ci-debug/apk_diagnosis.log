@@ -1,112 +1,38 @@
 === whole app/build tree (top 2 levels) ===
 app/build
+app/build/generated
+app/build/generated/res
 app/build/intermediates
+app/build/intermediates/stripped_native_libs
+app/build/intermediates/data_binding_dependency_artifacts
+app/build/intermediates/native_debug_metadata
+app/build/intermediates/merged_native_libs
+app/build/intermediates/merged_jni_libs
+app/build/intermediates/nested_resources_validation_report
 app/build/intermediates/cxx
+app/build/intermediates/data_binding_layout_info_type_merge
+app/build/intermediates/merged_res
+app/build/intermediates/incremental
+app/build/intermediates/merged_res_blame_folder
+app/build/intermediates/merged_test_only_native_libs
+app/build/gmpAppId
+app/build/gmpAppId/debug.txt
+app/build/crashlytics
+app/build/crashlytics/debug
 === find app/build -name '*.apk' (anywhere) ===
 === does app/build/outputs exist? ===
 ls: cannot access 'app/build/outputs': No such file or directory
 === grep for CMake Error / error: in build_error.log ===
-29:C/C++: CMake Error at CMakeLists.txt:12 (add_subdirectory):
-32:C/C++: CMake Error at CMakeLists.txt:13 (add_subdirectory):
-40:FAILURE: Build failed with an exception.
-74:  CMake Error at CMakeLists.txt:12 (add_subdirectory):
-79:  CMake Error at CMakeLists.txt:13 (add_subdirectory):
-111:  CMake Error at CMakeLists.txt:12 (add_subdirectory):
-116:  CMake Error at CMakeLists.txt:13 (add_subdirectory):
-340:CMake Error at CMakeLists.txt:12 (add_subdirectory):
-345:CMake Error at CMakeLists.txt:13 (add_subdirectory):
-377:CMake Error at CMakeLists.txt:12 (add_subdirectory):
-382:CMake Error at CMakeLists.txt:13 (add_subdirectory):
+62:ERROR: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Resource and asset merger: Duplicate resources
+63:ERROR: [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Resource and asset merger: Duplicate resources
+67:FAILURE: Build failed with an exception.
+71:> [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+72:  [color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+113:Caused by: com.android.build.gradle.tasks.ResourceException: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+114:[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+240:Caused by: [color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_thumb_color.xml	[color/switch_thumb_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
+241:[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/color/switch_track_color.xml	[color/switch_track_color] /home/runner/work/Pls/Pls/app/src/main/res/values/colors.xml: Error: Duplicate resources
 === 40 lines before/after first 'CMake Error' ===
-Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
-.............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
-
-Welcome to Gradle 8.13!
-
-Here are the highlights of this release:
- - Daemon JVM auto-provisioning
- - Enhancements for Scala plugin and JUnit testing
- - Improvements for build authors and plugin developers
-
-For more details see https://docs.gradle.org/8.13/release-notes.html
-
-Starting a Gradle Daemon (subsequent builds will be faster)
-
-> Configure project :app
-fatal: No names found, cannot describe anything.
-
-> Task :app:preBuild UP-TO-DATE
-> Task :app:preDebugBuild UP-TO-DATE
-
-> Task :app:configureCMakeDebug[arm64-v8a]
-Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
-License for package CMake 3.22.1 accepted.
-Preparing "Install CMake 3.22.1 v.3.22.1".
-"Install CMake 3.22.1 v.3.22.1" ready.
-Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
-"Install CMake 3.22.1 v.3.22.1" complete.
-"Install CMake 3.22.1 v.3.22.1" finished.
-C/C++: CMake Error at CMakeLists.txt:12 (add_subdirectory):
-C/C++:   add_subdirectory given source "preloader" which is not an existing
-C/C++:   directory.
-C/C++: CMake Error at CMakeLists.txt:13 (add_subdirectory):
-C/C++:   add_subdirectory given source "libHttpClient/Build/libHttpClient.Android"
-C/C++:   which is not an existing directory.
-
-> Task :app:configureCMakeDebug[arm64-v8a] FAILED
-
-[Incubating] Problems report is available at: file:///home/runner/work/Pls/Pls/build/reports/problems/problems-report.html
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Execution failed for task ':app:configureCMakeDebug[arm64-v8a]'.
-> [CXX1429] error when building with cmake using /home/runner/work/Pls/Pls/app/src/main/cpp/CMakeLists.txt: -- The CXX compiler identification is Clang 19.0.1
-  -- Detecting CXX compiler ABI info
-  -- Detecting CXX compiler ABI info - done
-  -- Check for working CXX compiler: /usr/local/lib/android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ - skipped
-  -- Detecting CXX compile features
-  -- Detecting CXX compile features - done
-  -- Configuring incomplete, errors occurred!
-  See also "/home/runner/work/Pls/Pls/app/.cxx/Debug/4o4m621f/arm64-v8a/CMakeFiles/CMakeOutput.log".
-  
-  C++ build system [configure] failed while executing:
-      /usr/local/lib/android/sdk/cmake/3.22.1/bin/cmake \
-        -H/home/runner/work/Pls/Pls/app/src/main/cpp \
-        -DCMAKE_SYSTEM_NAME=Android \
-        -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
-        -DCMAKE_SYSTEM_VERSION=28 \
-        -DANDROID_PLATFORM=android-28 \
-        -DANDROID_ABI=arm64-v8a \
-        -DCMAKE_ANDROID_ARCH_ABI=arm64-v8a \
-        -DANDROID_NDK=/usr/local/lib/android/sdk/ndk/28.2.13676358 \
-        -DCMAKE_ANDROID_NDK=/usr/local/lib/android/sdk/ndk/28.2.13676358 \
-        -DCMAKE_TOOLCHAIN_FILE=/usr/local/lib/android/sdk/ndk/28.2.13676358/build/cmake/android.toolchain.cmake \
-        -DCMAKE_MAKE_PROGRAM=/usr/local/lib/android/sdk/cmake/3.22.1/bin/ninja \
-        -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=/home/runner/work/Pls/Pls/app/build/intermediates/cxx/Debug/4o4m621f/obj/arm64-v8a \
-        -DCMAKE_RUNTIME_OUTPUT_DIRECTORY=/home/runner/work/Pls/Pls/app/build/intermediates/cxx/Debug/4o4m621f/obj/arm64-v8a \
-        -DCMAKE_BUILD_TYPE=Debug \
-        -DCMAKE_FIND_ROOT_PATH=/home/runner/work/Pls/Pls/app/.cxx/Debug/4o4m621f/prefab/arm64-v8a/prefab \
-        -B/home/runner/work/Pls/Pls/app/.cxx/Debug/4o4m621f/arm64-v8a \
-        -GNinja \
-        -DANDROID_STL=c++_shared
-    from /home/runner/work/Pls/Pls/app
-  CMake Error at CMakeLists.txt:12 (add_subdirectory):
-    add_subdirectory given source "preloader" which is not an existing
-    directory.
-  
-  
-  CMake Error at CMakeLists.txt:13 (add_subdirectory):
-    add_subdirectory given source "libHttpClient/Build/libHttpClient.Android"
-    which is not an existing directory. : com.android.ide.common.process.ProcessException: -- The CXX compiler identification is Clang 19.0.1
-  -- Detecting CXX compiler ABI info
-  -- Detecting CXX compiler ABI info - done
-  -- Check for working CXX compiler: /usr/local/lib/android/sdk/ndk/28.2.13676358/toolchains/llvm/prebuilt/linux-x86_64/bin/clang++ - skipped
-  -- Detecting CXX compile features
-  -- Detecting CXX compile features - done
-  -- Configuring incomplete, errors occurred!
-  See also "/home/runner/work/Pls/Pls/app/.cxx/Debug/4o4m621f/arm64-v8a/CMakeFiles/CMakeOutput.log".
-  
 === gradle assembleDebug tasks (dry run) ===
 assemble - Assemble main outputs for all the variants.
 assembleAndroidTest - Assembles all the Test applications.
