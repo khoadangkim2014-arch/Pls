@@ -138,14 +138,14 @@ jobs:
         if: env.HAS_GOOGLE_SERVICES == 'true'
         run: ./gradlew assembleDebug assembleBeta assembleRelease
 
-      - name: Compile Debug Without Firebase Secrets
+      - name: Build Debug APK Without Firebase Secrets
         if: env.HAS_GOOGLE_SERVICES == 'false'
-        id: compile_debug
+        id: build_debug_no_firebase
         continue-on-error: true
-        run: ./gradlew :app:compileDebugKotlin :app:compileDebugJavaWithJavac --stacktrace 2>&1 | tee /tmp/build_error.log
+        run: ./gradlew assembleDebug --stacktrace 2>&1 | tee /tmp/build_error.log
 
       - name: Commit build error log for diagnosis
-        if: steps.compile_debug.outcome == 'failure'
+        if: steps.build_debug_no_firebase.outcome == 'failure'
         run: |
           mkdir -p .ci-debug
           cp /tmp/build_error.log .ci-debug/last_build_error.log
@@ -155,12 +155,11 @@ jobs:
           git commit -m "ci: capture build error log [skip ci]"
           git push origin HEAD:main
 
-      - name: Fail if compile step failed
-        if: steps.compile_debug.outcome == 'failure'
+      - name: Fail if debug build failed
+        if: steps.build_debug_no_firebase.outcome == 'failure'
         run: exit 1
 
       - name: Upload Debug APK
-        if: env.HAS_GOOGLE_SERVICES == 'true'
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-debug-apk
