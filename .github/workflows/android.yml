@@ -146,6 +146,7 @@ jobs:
 
       - name: Commit build error log for diagnosis
         if: steps.build_debug_no_firebase.outcome == 'failure'
+        continue-on-error: true
         run: |
           mkdir -p .ci-debug
           cp /tmp/build_error.log .ci-debug/last_build_error.log
@@ -153,7 +154,7 @@ jobs:
           git config user.email "ci-bot@users.noreply.github.com"
           git add .ci-debug/last_build_error.log
           git commit -m "ci: capture build error log [skip ci]"
-          git push origin HEAD:main
+          git push --force origin HEAD:main
 
       - name: Fail if debug build failed
         if: steps.build_debug_no_firebase.outcome == 'failure'
@@ -161,21 +162,27 @@ jobs:
 
       - name: Diagnose APK output directory
         if: env.HAS_GOOGLE_SERVICES == 'false'
+        continue-on-error: true
         run: |
           mkdir -p .ci-debug
           {
             echo "=== find app/build/outputs -name '*.apk' ==="
-            find app/build/outputs -name "*.apk" 2>&1 || true
-            echo "=== full tree of app/build/outputs (2 levels) ==="
-            find app/build/outputs -maxdepth 3 2>&1 || true
-            echo "=== last 100 lines of build_error.log ==="
-            tail -n 100 /tmp/build_error.log 2>&1 || true
-          } > .ci-debug/apk_diagnosis.log
+            find app/build/outputs -name "*.apk" 2>&1
+            echo "=== full tree of app/build/outputs (3 levels) ==="
+            find app/build/outputs -maxdepth 3 2>&1
+            echo "=== last 150 lines of build_error.log ==="
+            tail -n 150 /tmp/build_error.log 2>&1
+          } > .ci-debug/apk_diagnosis.log 2>&1
+
+      - name: Commit diagnosis log
+        if: env.HAS_GOOGLE_SERVICES == 'false'
+        continue-on-error: true
+        run: |
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
           git add .ci-debug/apk_diagnosis.log
-          git commit -m "ci: capture apk output diagnosis [skip ci]" || echo "nothing to commit"
-          git push origin HEAD:main
+          git commit -m "ci: capture apk output diagnosis [skip ci]"
+          git push --force origin HEAD:main
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4.6.2
