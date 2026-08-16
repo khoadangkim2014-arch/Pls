@@ -162,27 +162,33 @@ jobs:
 
       - name: Diagnose APK output directory
         if: env.HAS_GOOGLE_SERVICES == 'false'
-        continue-on-error: true
         run: |
+          set +e
           mkdir -p .ci-debug
           {
-            echo "=== find app/build/outputs -name '*.apk' ==="
-            find app/build/outputs -name "*.apk" 2>&1
-            echo "=== full tree of app/build/outputs (3 levels) ==="
-            find app/build/outputs -maxdepth 3 2>&1
-            echo "=== last 150 lines of build_error.log ==="
-            tail -n 150 /tmp/build_error.log 2>&1
+            echo "=== whole app/build tree (top 2 levels) ==="
+            find app/build -maxdepth 2 2>&1
+            echo "=== find app/build -name '*.apk' (anywhere) ==="
+            find app/build -name "*.apk" 2>&1
+            echo "=== does app/build/outputs exist? ==="
+            ls -la app/build/outputs 2>&1
+            echo "=== last 200 lines of build_error.log ==="
+            tail -n 200 /tmp/build_error.log 2>&1
+            echo "=== gradle assembleDebug tasks (dry run) ==="
+            ./gradlew :app:tasks --all 2>&1 | grep -i "assemble\|apk" 
           } > .ci-debug/apk_diagnosis.log 2>&1
+          echo "diagnosis written, $(wc -l < .ci-debug/apk_diagnosis.log) lines"
 
       - name: Commit diagnosis log
         if: env.HAS_GOOGLE_SERVICES == 'false'
-        continue-on-error: true
         run: |
+          set +e
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
-          git add .ci-debug/apk_diagnosis.log
+          git add -f .ci-debug/apk_diagnosis.log
           git commit -m "ci: capture apk output diagnosis [skip ci]"
           git push --force origin HEAD:main
+          echo "push exit code: $?"
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4.6.2
