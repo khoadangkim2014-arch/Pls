@@ -172,8 +172,10 @@ jobs:
             find app/build -name "*.apk" 2>&1
             echo "=== does app/build/outputs exist? ==="
             ls -la app/build/outputs 2>&1
-            echo "=== last 200 lines of build_error.log ==="
-            tail -n 200 /tmp/build_error.log 2>&1
+            echo "=== grep for CMake Error / error: in build_error.log ==="
+            grep -n -iE "CMake Error|error:|fatal error|failed with" /tmp/build_error.log | head -n 60
+            echo "=== 40 lines before/after first 'CMake Error' ==="
+            grep -n "CMake Error" /tmp/build_error.log | head -1 | cut -d: -f1 | xargs -I{} sh -c 'sed -n "$(( {} > 40 ? {} - 40 : 1 )),$(( {} + 60 ))p" /tmp/build_error.log'
             echo "=== gradle assembleDebug tasks (dry run) ==="
             ./gradlew :app:tasks --all 2>&1 | grep -i "assemble\|apk" 
           } > .ci-debug/apk_diagnosis.log 2>&1
