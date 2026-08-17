@@ -4,64 +4,89 @@ app/build/generated
 app/build/generated/source
 app/build/generated/res
 app/build/generated/updated_navigation_xml
+app/build/generated/ap_generated_sources
 app/build/generated/data_binding_base_class_source_out
 app/build/intermediates
 app/build/intermediates/runtime_symbol_list
+app/build/intermediates/mixed_scope_dex_archive
 app/build/intermediates/merged_manifest
+app/build/intermediates/global_synthetics_dex
 app/build/intermediates/local_only_symbol_list
+app/build/intermediates/merged_java_res
 app/build/intermediates/aar_metadata_check
+app/build/intermediates/javac
 app/build/intermediates/stripped_native_libs
+app/build/intermediates/dex_archive_input_jar_hashes
+app/build/intermediates/sub_project_dex_archive
 app/build/intermediates/compile_and_runtime_not_namespaced_r_class_jar
+app/build/intermediates/global_synthetics_file_lib
+app/build/intermediates/java_res
+app/build/intermediates/global_synthetics_external_libs_artifact_transform
 app/build/intermediates/data_binding_dependency_artifacts
 app/build/intermediates/native_debug_metadata
+app/build/intermediates/desugar_graph
 app/build/intermediates/data_binding_layout_info_type_package
+app/build/intermediates/global_synthetics_subproject
+app/build/intermediates/external_libs_dex_archive_with_artifact_transforms
 app/build/intermediates/packaged_res
 app/build/intermediates/merged_native_libs
+app/build/intermediates/compressed_assets
+app/build/intermediates/app_metadata
 app/build/intermediates/symbol_list_with_package_name
 app/build/intermediates/merged_jni_libs
 app/build/intermediates/nested_resources_validation_report
+app/build/intermediates/project_dex_archive
+app/build/intermediates/duplicate_classes_check
+app/build/intermediates/external_file_lib_dex_archives
 app/build/intermediates/source_set_path_map
+app/build/intermediates/assets
 app/build/intermediates/linked_resources_binary_format
 app/build/intermediates/navigation_json
+app/build/intermediates/global_synthetics_external_lib
+app/build/intermediates/global_synthetics_project
 app/build/intermediates/cxx
+app/build/intermediates/merged_shaders
 app/build/intermediates/data_binding_base_class_log_artifact
 app/build/intermediates/data_binding_layout_info_type_merge
 app/build/intermediates/compatible_screen_manifest
+app/build/intermediates/annotation_processor_list
 app/build/intermediates/merged_res
+app/build/intermediates/global_synthetics_mixed_scope
+app/build/intermediates/dex
 app/build/intermediates/incremental
 app/build/intermediates/compiled_navigation_res
 app/build/intermediates/manifest_merge_blame_file
 app/build/intermediates/merged_manifests
+app/build/intermediates/validate_signing_config
 app/build/intermediates/merged_res_blame_folder
 app/build/intermediates/stable_resource_ids_file
 app/build/intermediates/packaged_manifests
+app/build/intermediates/signing_config_versions
+app/build/intermediates/external_libs_dex_archive
+app/build/intermediates/apk_ide_redirect_file
 app/build/intermediates/merged_test_only_native_libs
+app/build/intermediates/dex_number_of_buckets_file
 app/build/outputs
+app/build/outputs/apk
 app/build/outputs/logs
+app/build/kotlin
+app/build/kotlin/compileDebugKotlin
+app/build/tmp
+app/build/tmp/compileDebugJavaWithJavac
+app/build/tmp/kotlin-classes
 app/build/gmpAppId
 app/build/gmpAppId/debug.txt
 app/build/crashlytics
 app/build/crashlytics/debug
 === find app/build -name '*.apk' (anywhere) ===
+app/build/outputs/apk/debug/app-debug.apk
 === does app/build/outputs exist? ===
-total 12
-drwxr-xr-x 3 runner runner 4096 Aug 17 00:14 .
-drwxr-xr-x 7 runner runner 4096 Aug 17 00:14 ..
-drwxr-xr-x 2 runner runner 4096 Aug 17 00:14 logs
+total 16
+drwxr-xr-x 4 runner runner 4096 Aug 17 00:29 .
+drwxr-xr-x 9 runner runner 4096 Aug 17 00:27 ..
+drwxr-xr-x 3 runner runner 4096 Aug 17 00:29 apk
+drwxr-xr-x 2 runner runner 4096 Aug 17 00:27 logs
 === grep for CMake Error / error: in build_error.log ===
-102:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-107:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-112:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
-117:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
-132:FAILURE: Build failed with an exception.
-137:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-142:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-147:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
-152:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
-202:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-207:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
-212:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
-217:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
 === 40 lines before/after first 'CMake Error' ===
 === gradle assembleDebug tasks (dry run) ===
 assemble - Assemble main outputs for all the variants.
