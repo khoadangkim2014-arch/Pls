@@ -45,51 +45,33 @@ app/build/crashlytics/debug
 === find app/build -name '*.apk' (anywhere) ===
 === does app/build/outputs exist? ===
 total 12
-drwxr-xr-x 3 runner runner 4096 Aug 17 00:03 .
-drwxr-xr-x 7 runner runner 4096 Aug 17 00:03 ..
-drwxr-xr-x 2 runner runner 4096 Aug 17 00:03 logs
+drwxr-xr-x 3 runner runner 4096 Aug 17 00:09 .
+drwxr-xr-x 7 runner runner 4096 Aug 17 00:09 ..
+drwxr-xr-x 2 runner runner 4096 Aug 17 00:09 logs
 === grep for CMake Error / error: in build_error.log ===
-96:FAILURE: Build failed with an exception.
-102:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:3: AAPT: error: resource android:drawable/apptheme_btn_check_on_holo_light not found.
-104:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:4: AAPT: error: resource android:drawable/apptheme_btn_check_off_holo_light not found.
-106:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:5: AAPT: error: resource android:drawable/apptheme_btn_check_on_pressed_holo_light not found.
-108:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:6: AAPT: error: resource android:drawable/apptheme_btn_check_off_pressed_holo_light not found.
-110:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:7: AAPT: error: resource android:drawable/apptheme_btn_check_on_focused_holo_light not found.
-112:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:8: AAPT: error: resource android:drawable/apptheme_btn_check_off_focused_holo_light not found.
-114:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:9: AAPT: error: resource android:drawable/apptheme_btn_check_off_holo_light not found.
-116:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:10: AAPT: error: resource android:drawable/apptheme_btn_check_on_holo_light not found.
-118:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:11: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_holo_light not found.
-120:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:12: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_holo_light not found.
-122:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:13: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_focused_holo_light not found.
-124:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:14: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_focused_holo_light not found.
-126:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:15: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_holo_light not found.
-128:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:16: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_holo_light not found.
-130:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:3: AAPT: error: resource android:drawable/apptheme_btn_radio_on_holo_light not found.
-132:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:4: AAPT: error: resource android:drawable/apptheme_btn_radio_off_holo_light not found.
-134:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:5: AAPT: error: resource android:drawable/apptheme_btn_radio_on_pressed_holo_light not found.
-136:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:6: AAPT: error: resource android:drawable/apptheme_btn_radio_off_pressed_holo_light not found.
-138:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:7: AAPT: error: resource android:drawable/apptheme_btn_radio_on_focused_holo_light not found.
-140:     ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:8: AAPT: error: resource android:drawable/apptheme_btn_radio_off_focused_holo_light not found.
-308:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:3: AAPT: error: resource android:drawable/apptheme_btn_check_on_holo_light not found.
-310:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:4: AAPT: error: resource android:drawable/apptheme_btn_check_off_holo_light not found.
-312:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:5: AAPT: error: resource android:drawable/apptheme_btn_check_on_pressed_holo_light not found.
-314:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:6: AAPT: error: resource android:drawable/apptheme_btn_check_off_pressed_holo_light not found.
-316:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:7: AAPT: error: resource android:drawable/apptheme_btn_check_on_focused_holo_light not found.
-318:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:8: AAPT: error: resource android:drawable/apptheme_btn_check_off_focused_holo_light not found.
-320:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:9: AAPT: error: resource android:drawable/apptheme_btn_check_off_holo_light not found.
-322:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:10: AAPT: error: resource android:drawable/apptheme_btn_check_on_holo_light not found.
-324:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:11: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_holo_light not found.
-326:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:12: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_holo_light not found.
-328:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:13: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_focused_holo_light not found.
-330:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:14: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_focused_holo_light not found.
-332:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:15: AAPT: error: resource android:drawable/apptheme_btn_check_off_disabled_holo_light not found.
-334:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_check_holo_light.xml:16: AAPT: error: resource android:drawable/apptheme_btn_check_on_disabled_holo_light not found.
-336:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:3: AAPT: error: resource android:drawable/apptheme_btn_radio_on_holo_light not found.
-338:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:4: AAPT: error: resource android:drawable/apptheme_btn_radio_off_holo_light not found.
-340:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:5: AAPT: error: resource android:drawable/apptheme_btn_radio_on_pressed_holo_light not found.
-342:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:6: AAPT: error: resource android:drawable/apptheme_btn_radio_off_pressed_holo_light not found.
-344:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:7: AAPT: error: resource android:drawable/apptheme_btn_radio_on_focused_holo_light not found.
-346:ERROR: /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/drawable/apptheme_btn_radio_holo_light.xml:8: AAPT: error: resource android:drawable/apptheme_btn_radio_off_focused_holo_light not found.
+97:FAILURE: Build failed with an exception.
+103:     org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_minecraft_loading.xml:20: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+104:     org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_splash.xml:51: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+105:     /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/change_friendship_dialog.xml:40: error: resource drawable/gamerpic_missing (aka org.levimc.launcher:drawable/gamerpic_missing) not found.
+106:     org.levimc.launcher.app-mergeDebugResources-66:/layout/dialog_game_version_select.xml:28: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+107:     org.levimc.launcher.app-mergeDebugResources-66:/layout/nav_bar.xml:39: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+108:     org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu.xml:568: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+109:     org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu_button.xml:14: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+110:     /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/profile_screen.xml:27: error: resource drawable/placeholder_x (aka org.levimc.launcher:drawable/placeholder_x) not found.
+111:     org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:5: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+112:     org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:8: error: resource drawable/ic_leaf_logo_mono (aka org.levimc.launcher:drawable/ic_leaf_logo_mono) not found.
+113:     error: failed linking file resources.
+339:org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_minecraft_loading.xml:20: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+340:org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_splash.xml:51: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+341:/home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/change_friendship_dialog.xml:40: error: resource drawable/gamerpic_missing (aka org.levimc.launcher:drawable/gamerpic_missing) not found.
+342:org.levimc.launcher.app-mergeDebugResources-66:/layout/dialog_game_version_select.xml:28: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+343:org.levimc.launcher.app-mergeDebugResources-66:/layout/nav_bar.xml:39: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+344:org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu.xml:568: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+345:org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu_button.xml:14: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+346:/home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/profile_screen.xml:27: error: resource drawable/placeholder_x (aka org.levimc.launcher:drawable/placeholder_x) not found.
+347:org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:5: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
+348:org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:8: error: resource drawable/ic_leaf_logo_mono (aka org.levimc.launcher:drawable/ic_leaf_logo_mono) not found.
+349:error: failed linking file resources.
 === 40 lines before/after first 'CMake Error' ===
 === gradle assembleDebug tasks (dry run) ===
 assemble - Assemble main outputs for all the variants.
