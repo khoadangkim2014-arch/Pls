@@ -45,33 +45,23 @@ app/build/crashlytics/debug
 === find app/build -name '*.apk' (anywhere) ===
 === does app/build/outputs exist? ===
 total 12
-drwxr-xr-x 3 runner runner 4096 Aug 17 00:09 .
-drwxr-xr-x 7 runner runner 4096 Aug 17 00:09 ..
-drwxr-xr-x 2 runner runner 4096 Aug 17 00:09 logs
+drwxr-xr-x 3 runner runner 4096 Aug 17 00:14 .
+drwxr-xr-x 7 runner runner 4096 Aug 17 00:14 ..
+drwxr-xr-x 2 runner runner 4096 Aug 17 00:14 logs
 === grep for CMake Error / error: in build_error.log ===
-97:FAILURE: Build failed with an exception.
-103:     org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_minecraft_loading.xml:20: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-104:     org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_splash.xml:51: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-105:     /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/change_friendship_dialog.xml:40: error: resource drawable/gamerpic_missing (aka org.levimc.launcher:drawable/gamerpic_missing) not found.
-106:     org.levimc.launcher.app-mergeDebugResources-66:/layout/dialog_game_version_select.xml:28: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-107:     org.levimc.launcher.app-mergeDebugResources-66:/layout/nav_bar.xml:39: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-108:     org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu.xml:568: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-109:     org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu_button.xml:14: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-110:     /home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/profile_screen.xml:27: error: resource drawable/placeholder_x (aka org.levimc.launcher:drawable/placeholder_x) not found.
-111:     org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:5: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-112:     org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:8: error: resource drawable/ic_leaf_logo_mono (aka org.levimc.launcher:drawable/ic_leaf_logo_mono) not found.
-113:     error: failed linking file resources.
-339:org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_minecraft_loading.xml:20: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-340:org.levimc.launcher.app-mergeDebugResources-66:/layout/activity_splash.xml:51: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-341:/home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/change_friendship_dialog.xml:40: error: resource drawable/gamerpic_missing (aka org.levimc.launcher:drawable/gamerpic_missing) not found.
-342:org.levimc.launcher.app-mergeDebugResources-66:/layout/dialog_game_version_select.xml:28: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-343:org.levimc.launcher.app-mergeDebugResources-66:/layout/nav_bar.xml:39: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-344:org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu.xml:568: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-345:org.levimc.launcher.app-mergeDebugResources-66:/layout/overlay_mod_menu_button.xml:14: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-346:/home/runner/work/Pls/Pls/minecraft/build/intermediates/packaged_res/debug/packageDebugResources/layout/profile_screen.xml:27: error: resource drawable/placeholder_x (aka org.levimc.launcher:drawable/placeholder_x) not found.
-347:org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:5: error: resource drawable/ic_leaf_logo (aka org.levimc.launcher:drawable/ic_leaf_logo) not found.
-348:org.levimc.launcher.app-main-69:/mipmap-anydpi-v26/ic_launcher.xml:8: error: resource drawable/ic_leaf_logo_mono (aka org.levimc.launcher:drawable/ic_leaf_logo_mono) not found.
-349:error: failed linking file resources.
+102:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+107:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+112:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
+117:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
+132:FAILURE: Build failed with an exception.
+137:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+142:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+147:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
+152:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
+202:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+207:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/dialog/ChangeFriendshipDialog.java:128: error: cannot find symbol
+212:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
+217:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/microsoft/xbox/xle/app/adapter/ProfileScreenAdapter.java:133: error: cannot find symbol
 === 40 lines before/after first 'CMake Error' ===
 === gradle assembleDebug tasks (dry run) ===
 assemble - Assemble main outputs for all the variants.
