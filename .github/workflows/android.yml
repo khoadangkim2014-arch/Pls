@@ -92,6 +92,8 @@ jobs:
             find app/build/outputs -maxdepth 4 2>&1
             echo "=== last 100 lines of build_error.log ==="
             tail -n 100 /tmp/build_error.log 2>&1
+            echo "=== What went wrong section ==="
+            grep -n "What went wrong" /tmp/build_error.log | head -1 | cut -d: -f1 | xargs -I{} sh -c 'sed -n "{},$(( {} + 60 ))p" /tmp/build_error.log'
           } > .ci-debug/apk_diagnosis2.log 2>&1
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
