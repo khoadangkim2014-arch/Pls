@@ -16,6 +16,15 @@
 
     <color name="background">#F8FFF0</color>
     <color name="surface">#F1F8E9</color>
+
+    <!-- Liquid glass palette -->
+    <color name="glass_fill">#59FFFFFF</color>
+    <color name="glass_fill_strong">#8CFFFFFF</color>
+    <color name="glass_border">#66FFFFFF</color>
+    <color name="glass_highlight">#33FFFFFF</color>
+    <color name="glass_primary_fill">#661B5E20</color>
+    <color name="glass_primary_border">#801B5E20</color>
+    <color name="glass_shadow">#1A000000</color>
     <color name="surface_variant">#E8F5E9</color>
     <color name="on_background">#212121</color>
     <color name="on_surface">#212121</color>

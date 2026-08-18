@@ -42,6 +42,7 @@ import org.levimc.launcher.ui.animation.DynamicAnim;
 import org.levimc.launcher.ui.dialogs.CustomAlertDialog;
 import org.levimc.launcher.ui.dialogs.InstallProgressDialog;
 import org.levimc.launcher.util.ApkImportManager;
+import org.levimc.launcher.util.CustomPackageImportManager;
 import org.levimc.launcher.util.InstanceBackupManager;
 
 import java.util.ArrayList;
@@ -72,6 +73,7 @@ public class InstancesActivity extends BaseActivity {
     private List<GameVersion> allVersions = new ArrayList<>();
 
     private ApkImportManager apkImportManager;
+    private CustomPackageImportManager customPackageImportManager;
     private InstanceBackupManager backupManager;
     private InstallProgressDialog restoreProgressDialog;
     private InstallProgressDialog batchBackupProgressDialog;
@@ -81,6 +83,7 @@ public class InstancesActivity extends BaseActivity {
     private List<String> batchBackupFailures = new ArrayList<>();
     private int batchBackupIndex;
     private ActivityResultLauncher<Intent> apkImportResultLauncher;
+    private ActivityResultLauncher<Intent> customPackageImportResultLauncher;
     private ActivityResultLauncher<Intent> backupImportResultLauncher;
     private ActivityResultLauncher<Intent> instanceSettingsLauncher;
     private boolean firstResume = true;
@@ -105,6 +108,27 @@ public class InstancesActivity extends BaseActivity {
                 result -> {
                     if (apkImportManager != null)
                         apkImportManager.handleActivityResult(result.getResultCode(), result.getData());
+                }
+        );
+
+        customPackageImportManager = new CustomPackageImportManager(this);
+        customPackageImportManager.setOnImportCompleteListener(new CustomPackageImportManager.OnImportCompleteListener() {
+            @Override
+            public void onImportComplete(String packageName) {
+                versionManager.loadAllVersions();
+                loadVersions();
+                applyFilters();
+            }
+
+            @Override
+            public void onImportError(String message) {
+            }
+        });
+        customPackageImportResultLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (customPackageImportManager != null)
+                        customPackageImportManager.handleActivityResult(result.getResultCode(), result.getData());
                 }
         );
 
@@ -168,6 +192,7 @@ public class InstancesActivity extends BaseActivity {
         setupFilterTabs();
         setupSearch();
         setupImportButton();
+        setupImportPackageButton();
         setupBackupImportButton();
         setupBatchBackupButton();
         updateCount();
@@ -280,6 +305,15 @@ public class InstancesActivity extends BaseActivity {
         btnImport.setOnClickListener(v -> startApkFilePicker());
     }
 
+    private void setupImportPackageButton() {
+        TextView btnImportPkg = findViewById(R.id.btn_import_pkg);
+        if (btnImportPkg == null) return;
+        btnImportPkg.setVisibility(View.VISIBLE);
+        btnImportPkg.setSelected(true);
+        applyAccentButtonStyle(btnImportPkg);
+        btnImportPkg.setOnClickListener(v -> startCustomPackageFilePicker());
+    }
+
     private void setupBackupImportButton() {
         TextView btnImportBackup = findViewById(R.id.btn_import_backup);
         if (btnImportBackup == null) return;
@@ -332,6 +366,20 @@ public class InstancesActivity extends BaseActivity {
         };
         intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
         backupImportResultLauncher.launch(intent);
+    }
+
+    private void startCustomPackageFilePicker() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        String[] mimeTypes = {
+                "application/zip",
+                "application/x-zip",
+                "application/x-zip-compressed",
+                "application/octet-stream"
+        };
+        intent.putExtra(Intent.EXTRA_MIME_TYPES, mimeTypes);
+        customPackageImportResultLauncher.launch(intent);
     }
 
     private void restoreBackup(android.net.Uri backupUri) {
@@ -811,6 +859,7 @@ public class InstancesActivity extends BaseActivity {
             loadVersions();
         }
         setupImportButton();
+        setupImportPackageButton();
         setupBackupImportButton();
         setupBatchBackupButton();
         applyFilters();

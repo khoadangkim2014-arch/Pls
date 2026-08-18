@@ -77,6 +77,11 @@
     <string name="storage_permission_not_granted">Storage permission not granted</string>
 
     <string name="import_apk">Import APK</string>
+    <string name="import_custom_package">Import Package</string>
+    <string name="custom_package_not_zip">Custom packages must be a .zip archive.</string>
+    <string name="custom_package_no_version">Select a game version first before importing a custom package.</string>
+    <string name="custom_package_installed">Custom package \"%1$s\" installed.</string>
+    <string name="custom_package_extract_failed">Failed to extract custom package: %1$s</string>
     <string name="install">Install</string>
     <string name="version_name">Version name</string>
     <string name="name_invalid">This name cannot be used or is already taken!</string>
@@ -424,6 +429,11 @@ Migration must complete before LeviLauncher can continue.</string>
     <string name="total_mods">Total Mods:</string>
     <string name="enabled_mods">Enabled:</string>
     <string name="add_mod">Add Mod</string>
+    <string name="scan_for_mods">Scan for Mods</string>
+    <string name="scan_mods_no_storage">Storage not available for scanning.</string>
+    <string name="scan_mods_none_found">No new .so mod files found.</string>
+    <string name="scan_mods_dialog_title">Select mods to add</string>
+    <string name="scan_mods_import">Add Selected</string>
 
     <!-- Mod Detail -->
     <string name="mod_detail_title">Mod Details</string>

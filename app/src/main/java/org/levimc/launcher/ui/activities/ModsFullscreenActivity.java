@@ -93,6 +93,13 @@ public class ModsFullscreenActivity extends BaseActivity {
         });
         DynamicAnim.applyPressScale(addModButton);
 
+        Button scanModsButton = findViewById(R.id.scan_mods_button);
+        if (scanModsButton != null) {
+            scanModsButton.setVisibility(View.VISIBLE);
+            scanModsButton.setOnClickListener(v -> scanForModFiles());
+            DynamicAnim.applyPressScale(scanModsButton);
+        }
+
         Button modMenuButton = findViewById(R.id.mod_menu_button);
         boolean isMenuEnabled = inbuiltModManager.isModMenuEnabled();
         modMenuButton.setText(getString(R.string.mod_menu) + ": " + (isMenuEnabled ? "ON" : "OFF"));
@@ -119,6 +126,124 @@ public class ModsFullscreenActivity extends BaseActivity {
         intent.addCategory(Intent.CATEGORY_OPENABLE);
         intent.setType("*/*");
         pickModLauncher.launch(intent);
+    }
+
+    /**
+     * Scans the app's external files directory for .so files that aren't already
+     * registered as mods, lets the user pick which ones to add, then routes the
+     * selection through the same import pipeline used by the manual file picker.
+     */
+    private void scanForModFiles() {
+        java.io.File scanRoot = getExternalFilesDir(null);
+        if (scanRoot == null) {
+            Toast.makeText(this, R.string.scan_mods_no_storage, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        java.util.Set<String> knownFileNames = new java.util.HashSet<>();
+        List<Mod> currentMods = viewModel != null ? viewModel.getModsLiveData().getValue() : null;
+        if (currentMods != null) {
+            for (Mod mod : currentMods) {
+                if (mod.getFileName() != null) {
+                    knownFileNames.add(mod.getFileName().toLowerCase(java.util.Locale.ROOT));
+                }
+            }
+        }
+
+        List<java.io.File> found = new ArrayList<>();
+        collectSoFiles(scanRoot, found, 0);
+
+        List<java.io.File> candidates = new ArrayList<>();
+        for (java.io.File file : found) {
+            if (!knownFileNames.contains(file.getName().toLowerCase(java.util.Locale.ROOT))) {
+                candidates.add(file);
+            }
+        }
+
+        if (candidates.isEmpty()) {
+            Toast.makeText(this, R.string.scan_mods_none_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        showScanResultsDialog(candidates);
+    }
+
+    private void collectSoFiles(java.io.File dir, List<java.io.File> out, int depth) {
+        if (dir == null || depth > 6 || out.size() > 200) return;
+        java.io.File[] children = dir.listFiles();
+        if (children == null) return;
+        for (java.io.File child : children) {
+            if (child.isDirectory()) {
+                collectSoFiles(child, out, depth + 1);
+            } else if (child.isFile() && child.getName().toLowerCase(java.util.Locale.ROOT).endsWith(".so")) {
+                out.add(child);
+            }
+        }
+    }
+
+    private void showScanResultsDialog(List<java.io.File> candidates) {
+        String[] labels = new String[candidates.size()];
+        boolean[] checked = new boolean[candidates.size()];
+        for (int i = 0; i < candidates.size(); i++) {
+            labels[i] = candidates.get(i).getName();
+            checked[i] = true;
+        }
+
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.scan_mods_dialog_title)
+                .setMultiChoiceItems(labels, checked, (dialog, which, isChecked) -> checked[which] = isChecked)
+                .setPositiveButton(R.string.scan_mods_import, (dialog, which) -> {
+                    List<java.io.File> selected = new ArrayList<>();
+                    for (int i = 0; i < candidates.size(); i++) {
+                        if (checked[i]) selected.add(candidates.get(i));
+                    }
+                    if (!selected.isEmpty()) importScannedFiles(selected);
+                })
+                .setNegativeButton(R.string.exit, null)
+                .show();
+    }
+
+    private void importScannedFiles(List<java.io.File> files) {
+        Intent syntheticIntent = new Intent();
+        android.content.ClipData clipData = null;
+        for (java.io.File file : files) {
+            android.net.Uri uri;
+            try {
+                uri = androidx.core.content.FileProvider.getUriForFile(
+                        this,
+                        getPackageName() + ".fileprovider",
+                        file
+                );
+            } catch (IllegalArgumentException e) {
+                continue;
+            }
+            if (clipData == null) {
+                clipData = android.content.ClipData.newUri(getContentResolver(), file.getName(), uri);
+            } else {
+                clipData.addItem(new android.content.ClipData.Item(uri));
+            }
+        }
+        if (clipData == null) {
+            Toast.makeText(this, R.string.scan_mods_none_found, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        syntheticIntent.setClipData(clipData);
+
+        fileHandler.processIncomingFilesWithConfirmation(syntheticIntent, new FileHandler.FileOperationCallback() {
+            @Override
+            public void onSuccess(int processedFiles) {
+                Toast.makeText(ModsFullscreenActivity.this, getString(R.string.files_processed, processedFiles), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String errorMessage) {
+                Toast.makeText(ModsFullscreenActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onProgressUpdate(int progress) {
+            }
+        }, true);
     }
 
     private void setupViewModel() {
