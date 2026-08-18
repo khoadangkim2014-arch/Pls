@@ -58,8 +58,6 @@ dependencies {
     implementation(libs.okhttp)
     implementation(libs.httpclient)
     implementation(libs.androidx.annotation)
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.iid)
 
     implementation(libs.pkix)
 
@@ -87,6 +85,4 @@ dependencies {
     implementation(libs.appcompat)
     implementation(libs.material)
 
-    implementation(libs.firebase.messaging)
-    implementation(libs.firebase.iid)
 }
