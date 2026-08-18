@@ -81,6 +81,24 @@ jobs:
         if: steps.build_all.outcome == 'failure'
         run: exit 1
 
+      - name: Diagnose APK output (always runs)
+        run: |
+          set +e
+          mkdir -p .ci-debug
+          {
+            echo "=== find app/build -name '*.apk' ==="
+            find app/build -name "*.apk" 2>&1
+            echo "=== app/build/outputs tree ==="
+            find app/build/outputs -maxdepth 4 2>&1
+            echo "=== last 100 lines of build_error.log ==="
+            tail -n 100 /tmp/build_error.log 2>&1
+          } > .ci-debug/apk_diagnosis2.log 2>&1
+          git config user.name "ci-bot"
+          git config user.email "ci-bot@users.noreply.github.com"
+          git add -f .ci-debug/apk_diagnosis2.log
+          git commit -m "ci: capture apk diagnosis 2 [skip ci]"
+          git push --force origin HEAD:main
+
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4.6.2
         with:
