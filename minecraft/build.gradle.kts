@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.fragment.ktx)
     implementation(libs.annotations)
     implementation(libs.androidx.annotation)
+    implementation(libs.androidx.documentfile)
     implementation(libs.okhttp)
     implementation(libs.httpclient)
     implementation(libs.androidx.annotation)
