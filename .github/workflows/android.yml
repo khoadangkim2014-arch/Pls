@@ -90,10 +90,12 @@ jobs:
             find app/build -name "*.apk" 2>&1
             echo "=== app/build/outputs tree ==="
             find app/build/outputs -maxdepth 4 2>&1
-            echo "=== last 100 lines of build_error.log ==="
-            tail -n 100 /tmp/build_error.log 2>&1
-            echo "=== What went wrong section ==="
-            grep -n "What went wrong" /tmp/build_error.log | head -1 | cut -d: -f1 | xargs -I{} sh -c 'sed -n "{},$(( {} + 60 ))p" /tmp/build_error.log'
+            echo "=== full build_error.log line count ===" 
+            wc -l /tmp/build_error.log
+            echo "=== first 150 lines (where the actual error usually is) ===" 
+            head -n 150 /tmp/build_error.log 2>&1
+            echo "=== lines containing Exception/Caused by/error ===" 
+            grep -n -iE "Exception|Caused by|error|FAILURE" /tmp/build_error.log | head -n 40
           } > .ci-debug/apk_diagnosis2.log 2>&1
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
