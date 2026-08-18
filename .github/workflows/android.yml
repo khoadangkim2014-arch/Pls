@@ -24,77 +24,6 @@ jobs:
           fetch-depth: 0
           submodules: "recursive"
 
-      - name: Prepare google-services.json
-        env:
-          GOOGLE_SERVICES_JSON_BASE64: ${{ secrets.GOOGLE_SERVICES_JSON_BASE64 }}
-        run: |
-          set -euo pipefail
-
-          if [ -z "${GOOGLE_SERVICES_JSON_BASE64:-}" ]; then
-            echo "HAS_GOOGLE_SERVICES=false" >> "$GITHUB_ENV"
-            echo "GOOGLE_SERVICES_JSON_BASE64 is not configured; using a CI-only Firebase placeholder for compile checks."
-            mkdir -p app
-            cat > app/google-services.json <<'JSON'
-          {
-            "project_info": {
-              "project_number": "000000000000",
-              "project_id": "ci-placeholder",
-              "storage_bucket": "ci-placeholder.appspot.com"
-            },
-            "client": [
-              {
-                "client_info": {
-                  "mobilesdk_app_id": "1:000000000000:android:0000000000000000000000",
-                  "android_client_info": {
-                    "package_name": "org.levimc.launcher"
-                  }
-                },
-                "oauth_client": [],
-                "api_key": [
-                  {
-                    "current_key": "AIzaSyCIOnlyPlaceholderKey"
-                  }
-                ],
-                "services": {
-                  "appinvite_service": {
-                    "other_platform_oauth_client": []
-                  }
-                }
-              }
-            ],
-            "configuration_version": "1"
-          }
-          JSON
-            exit 0
-          fi
-
-          mkdir -p app
-          printf '%s' "${GOOGLE_SERVICES_JSON_BASE64}" | base64 --decode > app/google-services.json
-          python3 -m json.tool app/google-services.json > /dev/null
-          python3 - <<'PY'
-          import json
-          import sys
-
-          expected = "org.levimc.launcher"
-          with open("app/google-services.json", encoding="utf-8") as fp:
-              data = json.load(fp)
-
-          package_names = {
-              client.get("client_info", {})
-              .get("android_client_info", {})
-              .get("package_name")
-              for client in data.get("client", [])
-          }
-          if expected not in package_names:
-              actual = ", ".join(sorted(name for name in package_names if name)) or "<none>"
-              print(
-                  f"google-services.json package_name mismatch: expected {expected}, got {actual}",
-                  file=sys.stderr,
-              )
-              sys.exit(1)
-          PY
-          echo "HAS_GOOGLE_SERVICES=true" >> "$GITHUB_ENV"
-
       - name: Setup Java JDK
         uses: actions/setup-java@v4
         with:
@@ -109,9 +38,6 @@ jobs:
 
       - name: Install Build Tools 35.0.0
         run: sdkmanager "build-tools;35.0.0"
-
-      - name: Verify installed SDK Packages
-        run: sdkmanager --list
 
       - name: Setup Xmake
         uses: xmake-io/github-action-setup-xmake@v1
@@ -135,62 +61,7 @@ jobs:
         run: echo "curseforge.api_key=${CF_API_KEY}" >> local.properties
 
       - name: Build Debug, Beta and Unsigned Release APKs
-        if: env.HAS_GOOGLE_SERVICES == 'true'
-        run: ./gradlew assembleDebug assembleBeta assembleRelease
-
-      - name: Build Debug APK Without Firebase Secrets
-        if: env.HAS_GOOGLE_SERVICES == 'false'
-        id: build_debug_no_firebase
-        continue-on-error: true
-        run: ./gradlew assembleDebug --stacktrace 2>&1 | tee /tmp/build_error.log
-
-      - name: Commit build error log for diagnosis
-        if: steps.build_debug_no_firebase.outcome == 'failure'
-        continue-on-error: true
-        run: |
-          mkdir -p .ci-debug
-          cp /tmp/build_error.log .ci-debug/last_build_error.log
-          git config user.name "ci-bot"
-          git config user.email "ci-bot@users.noreply.github.com"
-          git add .ci-debug/last_build_error.log
-          git commit -m "ci: capture build error log [skip ci]"
-          git push --force origin HEAD:main
-
-      - name: Fail if debug build failed
-        if: steps.build_debug_no_firebase.outcome == 'failure'
-        run: exit 1
-
-      - name: Diagnose APK output directory
-        if: env.HAS_GOOGLE_SERVICES == 'false'
-        run: |
-          set +e
-          mkdir -p .ci-debug
-          {
-            echo "=== whole app/build tree (top 2 levels) ==="
-            find app/build -maxdepth 2 2>&1
-            echo "=== find app/build -name '*.apk' (anywhere) ==="
-            find app/build -name "*.apk" 2>&1
-            echo "=== does app/build/outputs exist? ==="
-            ls -la app/build/outputs 2>&1
-            echo "=== grep for CMake Error / error: in build_error.log ==="
-            grep -n -iE "CMake Error|error:|fatal error|failed with" /tmp/build_error.log | head -n 60
-            echo "=== 40 lines before/after first 'CMake Error' ==="
-            grep -n "CMake Error" /tmp/build_error.log | head -1 | cut -d: -f1 | xargs -I{} sh -c 'sed -n "$(( {} > 40 ? {} - 40 : 1 )),$(( {} + 60 ))p" /tmp/build_error.log'
-            echo "=== gradle assembleDebug tasks (dry run) ==="
-            ./gradlew :app:tasks --all 2>&1 | grep -i "assemble\|apk" 
-          } > .ci-debug/apk_diagnosis.log 2>&1
-          echo "diagnosis written, $(wc -l < .ci-debug/apk_diagnosis.log) lines"
-
-      - name: Commit diagnosis log
-        if: env.HAS_GOOGLE_SERVICES == 'false'
-        run: |
-          set +e
-          git config user.name "ci-bot"
-          git config user.email "ci-bot@users.noreply.github.com"
-          git add -f .ci-debug/apk_diagnosis.log
-          git commit -m "ci: capture apk output diagnosis [skip ci]"
-          git push --force origin HEAD:main
-          echo "push exit code: $?"
+        run: ./gradlew assembleDebug assembleBeta assembleRelease --stacktrace
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4.6.2
@@ -200,21 +71,21 @@ jobs:
           if-no-files-found: warn
 
       - name: Upload Unsigned Release APK
-        if: env.HAS_GOOGLE_SERVICES == 'true'
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-release-unsigned-apk
           path: app/build/outputs/apk/release/*-unsigned.apk
+          if-no-files-found: warn
 
       - name: Upload Beta APK
-        if: env.HAS_GOOGLE_SERVICES == 'true'
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-beta-apk
           path: app/build/outputs/apk/beta/*.apk
+          if-no-files-found: warn
 
       - name: Sign Release APK
-        if: env.HAS_GOOGLE_SERVICES == 'true' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: kevin-david/zipalign-sign-android-release@v2
         id: sign_app
         with:
@@ -228,7 +99,7 @@ jobs:
           BUILD_TOOLS_VERSION: "35.0.0"
 
       - name: Rename APK with tag
-        if: env.HAS_GOOGLE_SERVICES == 'true' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         run: |
           TAG=${GITHUB_REF_NAME}
           SIGNED_APK="${{ steps.sign_app.outputs.signedReleaseFile }}"
@@ -237,14 +108,14 @@ jobs:
           echo "Signed APK renamed to $APK_DST"
 
       - name: Upload Signed APK Artifact
-        if: env.HAS_GOOGLE_SERVICES == 'true' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-${{ github.ref_name }}-release.apk
           path: PocketCosmosLevi-${{ github.ref_name }}-release.apk
 
       - name: Release APK to GitHub Releases
-        if: env.HAS_GOOGLE_SERVICES == 'true' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
           files: PocketCosmosLevi-${{ github.ref_name }}-release.apk
@@ -252,7 +123,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Notify Discord
-        if: env.HAS_GOOGLE_SERVICES == 'true' && startsWith(github.ref, 'refs/tags/')
+        if: startsWith(github.ref, 'refs/tags/')
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
           APK_URL: "https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}/PocketCosmosLevi-${{ github.ref_name }}-release.apk"
