@@ -4,7 +4,7 @@ app/build/outputs
 app/build/outputs/logs
 app/build/outputs/logs/manifest-merger-debug-report.txt
 === full build_error.log line count ===
-524 /tmp/build_error.log
+493 /tmp/build_error.log
 === first 150 lines (where the actual error usually is) ===
 Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
 .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
@@ -59,13 +59,13 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
 > Task :app:stripDebugDebugSymbols
-> Task :app:extractDebugNativeDebugMetadata
 > Task :app:packageDebugResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
-> Task :app:mergeDebugResources
+> Task :app:extractDebugNativeDebugMetadata
 > Task :app:processDebugNavigationResources
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugResources
 > Task :app:generateDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
@@ -89,12 +89,13 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :minecraft:processDebugManifest
 > Task :app:processDebugMainManifest
 > Task :app:processDebugManifest
+> Task :minecraft:kaptGenerateStubsDebugKotlin
+> Task :minecraft:javaPreCompileDebug
 > Task :app:processDebugManifestForPackage
 > Task :pojav_controls:javaPreCompileDebug
-> Task :minecraft:javaPreCompileDebug
-> Task :minecraft:kaptGenerateStubsDebugKotlin
-> Task :app:processDebugResources
+> Task :app:javaPreCompileDebug
 > Task :minecraft:kaptDebugKotlin
+> Task :app:processDebugResources
 
 > Task :pojav_controls:compileDebugJavaWithJavac
 Note: /home/runner/work/Pls/Pls/pojav_controls/src/main/java/org/levimc/pojavcontrols/PojavControlsEditorActivity.java uses or overrides a deprecated API.
@@ -103,97 +104,93 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :minecraft:compileDebugKotlin NO-SOURCE
 
 > Task :minecraft:compileDebugJavaWithJavac
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:9: error: package androidx.documentfile.provider does not exist
-import androidx.documentfile.provider.DocumentFile;
-                                     ^
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:93: error: cannot find symbol
-    public void doMigrateFolderContents(DocumentFile root, @NonNull File destFolder) {
-                                        ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-    private void generateCopyFilesRecursively(ArrayList<DocumentFile> result, @NonNull DocumentFile root) {
-                                                        ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-    private void generateCopyFilesRecursively(ArrayList<DocumentFile> result, @NonNull DocumentFile root) {
-                                                                                       ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-        final DocumentFile fromTreeUri = DocumentFile.fromTreeUri(this.mContext, Uri.parse(srcURIString));
-              ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-        final DocumentFile fromTreeUri = DocumentFile.fromTreeUri(this.mContext, Uri.parse(srcURIString));
-                                         ^
-  symbol:   variable DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:94: error: cannot find symbol
-        ArrayList<DocumentFile> arrayList = new ArrayList<>();
-                  ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:108: error: cannot find symbol
-        Iterator<DocumentFile> it = arrayList.iterator();
-                 ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:112: error: cannot find symbol
-            DocumentFile next = it.next();
-            ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
-/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:151: error: cannot find symbol
-        for (DocumentFile documentFile : root.listFiles()) {
-             ^
-  symbol:   class DocumentFile
-  location: class WorldRecovery
 Note: Some input files use or override a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
-10 errors
+
+> Task :app:mergeDebugShaders
+> Task :pojav_controls:bundleLibCompileToJarDebug
+> Task :app:compileDebugShaders NO-SOURCE
+> Task :app:generateDebugAssets UP-TO-DATE
+> Task :minecraft:mergeDebugShaders
+> Task :minecraft:compileDebugShaders NO-SOURCE
+> Task :minecraft:generateDebugAssets UP-TO-DATE
+> Task :minecraft:mergeDebugAssets
+> Task :pojav_controls:mergeDebugShaders
+> Task :pojav_controls:compileDebugShaders NO-SOURCE
+> Task :pojav_controls:generateDebugAssets UP-TO-DATE
+> Task :pojav_controls:mergeDebugAssets
+> Task :minecraft:bundleLibCompileToJarDebug
+> Task :app:mergeDebugAssets
+> Task :minecraft:bundleLibRuntimeToJarDebug
+> Task :app:compressDebugAssets
+> Task :pojav_controls:bundleLibRuntimeToJarDebug
+> Task :app:desugarDebugFileDependencies
+> Task :minecraft:processDebugJavaRes
+> Task :pojav_controls:processDebugJavaRes NO-SOURCE
+> Task :app:checkDebugDuplicateClasses
+
+> Task :app:compileDebugKotlin
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:421:47 'fun newInstance(): AssetManager!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:629:49 'constructor(p0: AssetManager!, p1: DisplayMetrics!, p2: Configuration!): Resources' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftActivity.kt:515:36 'fun toggleSoftInput(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftActivity.kt:515:71 'static field SHOW_FORCED: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:62:26 'fun setOnSystemUiVisibilityChangeListener(p0: View.OnSystemUiVisibilityChangeListener!): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:279:9 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:281:9 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:309:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:332:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:333:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:334:16 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:337:20 'var isStatusBarContrastEnforced: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:342:20 'fun setDecorFitsSystemWindows(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:350:19 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:351:18 'static field SYSTEM_UI_FLAG_IMMERSIVE_STICKY: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:352:22 'static field SYSTEM_UI_FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:353:22 'static field SYSTEM_UI_FLAG_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:354:22 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:355:22 'static field SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:356:22 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:101:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:147:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:169:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:170:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
 41:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 78:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
-98:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:9: error: package androidx.documentfile.provider does not exist
-101:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:93: error: cannot find symbol
-106:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-111:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-116:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-121:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-126:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:94: error: cannot find symbol
-131:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:108: error: cannot find symbol
-136:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:112: error: cannot find symbol
-141:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:151: error: cannot find symbol
-150:10 errors
-156:FAILURE: Build failed with an exception.
-161:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:9: error: package androidx.documentfile.provider does not exist
-164:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:93: error: cannot find symbol
-169:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-174:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-179:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-184:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-189:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:94: error: cannot find symbol
-194:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:108: error: cannot find symbol
-199:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:112: error: cannot find symbol
-204:  /home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:151: error: cannot find symbol
-213:  10 errors
-216:> Check your code and dependencies to fix the compilation error(s)
-219:* Exception is:
-220:org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':minecraft:compileDebugJavaWithJavac'.
-222:	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
-230:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
-280:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-282:Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-283:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:9: error: package androidx.documentfile.provider does not exist
-286:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:93: error: cannot find symbol
-291:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-296:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:150: error: cannot find symbol
-301:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-306:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:73: error: cannot find symbol
-311:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:94: error: cannot find symbol
-316:/home/runner/work/Pls/Pls/minecraft/src/main/java/com/mojang/minecraftpe/WorldRecovery.java:108: error: cannot find symbol
+164:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:120: error: cannot find symbol
+169:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:135: error: cannot find symbol
+174:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:356: error: cannot find symbol
+179:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:358: error: cannot find symbol
+184:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:523: error: cannot find symbol
+189:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:543: error: cannot find symbol
+194:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:569: error: cannot find symbol
+203:7 errors
+209:FAILURE: Build failed with an exception.
+214:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:120: error: cannot find symbol
+219:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:135: error: cannot find symbol
+224:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:356: error: cannot find symbol
+229:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:358: error: cannot find symbol
+234:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:523: error: cannot find symbol
+239:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:543: error: cannot find symbol
+244:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:569: error: cannot find symbol
+253:  7 errors
+256:> Check your code and dependencies to fix the compilation error(s)
+259:* Exception is:
+260:org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac'.
+262:	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
+270:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+291:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+293:Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
+294:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:120: error: cannot find symbol
+299:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/adapter/MemorySavedAdapter.java:135: error: cannot find symbol
+304:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:356: error: cannot find symbol
+309:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:358: error: cannot find symbol
+314:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:523: error: cannot find symbol
+319:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:543: error: cannot find symbol
+324:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/mods/memoryeditor/MemoryEditorOverlay.java:569: error: cannot find symbol
+333:7 errors
+336:	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
+461:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+482:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
