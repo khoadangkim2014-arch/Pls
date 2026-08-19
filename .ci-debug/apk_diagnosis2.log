@@ -85,18 +85,18 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
 > Task :app:stripDebugDebugSymbols
-> Task :app:extractDebugNativeDebugMetadata
 > Task :app:packageDebugResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
-> Task :app:mergeDebugResources
+> Task :app:extractDebugNativeDebugMetadata
 > Task :app:processDebugNavigationResources
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugResources
 > Task :app:generateDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
-> Task :minecraft:parseDebugLocalResources
 > Task :pojav_controls:parseDebugLocalResources
+> Task :minecraft:parseDebugLocalResources
 > Task :app:parseDebugLocalResources
 > Task :app:checkDebugAarMetadata
 > Task :pojav_controls:generateDebugRFile
@@ -121,6 +121,7 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :app:processDebugResources
 > Task :pojav_controls:javaPreCompileDebug
 > Task :app:javaPreCompileDebug
+> Task :app:mergeDebugShaders
 > Task :minecraft:kaptDebugKotlin
 
 > Task :pojav_controls:compileDebugJavaWithJavac
@@ -135,7 +136,6 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
-> Task :app:mergeDebugShaders
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :minecraft:mergeDebugShaders
@@ -145,9 +145,9 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
+> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugAssets
 > Task :minecraft:bundleLibCompileToJarDebug
-> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :app:mergeDebugAssets
 > Task :minecraft:bundleLibRuntimeToJarDebug
 > Task :app:compressDebugAssets
@@ -156,6 +156,8 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :minecraft:processDebugJavaRes
 > Task :pojav_controls:processDebugJavaRes NO-SOURCE
 > Task :app:checkDebugDuplicateClasses
+> Task :app:compileDebugKotlin
+> Task :app:mergeExtDexDebug
 
 > Task :app:compileDebugKotlin
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:421:47 'fun newInstance(): AssetManager!' is deprecated. Deprecated in Java.
@@ -180,8 +182,6 @@ w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/m
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:356:22 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:101:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:147:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:169:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
-w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:170:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
 41:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 78:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
