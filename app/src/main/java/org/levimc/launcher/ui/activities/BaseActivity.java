@@ -156,6 +156,7 @@ public class BaseActivity extends AppCompatActivity {
             int color = getResources().getColor(R.color.text_secondary, getTheme());
             tab.setTextColor(color);
             tab.setTypeface(tab.getTypeface(), android.graphics.Typeface.NORMAL);
+            tab.setSelected(false);
             TextViewCompat.setCompoundDrawableTintList(tab, ColorStateList.valueOf(color));
         }
 
@@ -276,25 +277,30 @@ public class BaseActivity extends AppCompatActivity {
         avatar.setTag(R.id.nav_account_avatar, url);
         avatar.setImageResource(R.drawable.ic_minecraft_cube);
         if (progress != null) progress.setVisibility(View.VISIBLE);
-        navAccountExecutor.execute(() -> {
-            Bitmap bmp = null;
-            try (Response imgResp = navAvatarClient.newCall(new Request.Builder().url(url).build()).execute()) {
-                if (imgResp.isSuccessful() && imgResp.body() != null) {
-                    bmp = android.graphics.BitmapFactory.decodeStream(imgResp.body().byteStream());
+        try {
+            navAccountExecutor.execute(() -> {
+                Bitmap bmp = null;
+                try (Response imgResp = navAvatarClient.newCall(new Request.Builder().url(url).build()).execute()) {
+                    if (imgResp.isSuccessful() && imgResp.body() != null) {
+                        bmp = android.graphics.BitmapFactory.decodeStream(imgResp.body().byteStream());
+                    }
+                } catch (Exception ignored) {
                 }
-            } catch (Exception ignored) {
-            }
 
-            final Bitmap loaded = bmp;
-            runOnUiThread(() -> {
-                if (!url.equals(avatar.getTag(R.id.nav_account_avatar))) return;
-                if (loaded != null) {
-                    AccountTextUtils.cacheAvatar(url, loaded);
-                    avatar.setImageBitmap(loaded);
-                }
-                if (progress != null) progress.setVisibility(View.GONE);
+                final Bitmap loaded = bmp;
+                runOnUiThread(() -> {
+                    if (!url.equals(avatar.getTag(R.id.nav_account_avatar))) return;
+                    if (loaded != null) {
+                        AccountTextUtils.cacheAvatar(url, loaded);
+                        avatar.setImageBitmap(loaded);
+                    }
+                    if (progress != null) progress.setVisibility(View.GONE);
+                });
             });
-        });
+        } catch (java.util.concurrent.RejectedExecutionException e) {
+            // Activity is being torn down; safe to ignore.
+            if (progress != null) progress.setVisibility(View.GONE);
+        }
     }
 
     private void handleNavAccountLoginResult(int resultCode, Intent data) {
@@ -331,10 +337,12 @@ public class BaseActivity extends AppCompatActivity {
                 color = accent != 0 ? accent : getResources().getColor(R.color.on_surface, getTheme());
                 tab.setTextColor(color);
                 tab.setTypeface(tab.getTypeface(), android.graphics.Typeface.BOLD);
+                tab.setSelected(true);
             } else {
                 color = getResources().getColor(R.color.text_secondary, getTheme());
                 tab.setTextColor(color);
                 tab.setTypeface(tab.getTypeface(), android.graphics.Typeface.NORMAL);
+                tab.setSelected(false);
             }
             TextViewCompat.setCompoundDrawableTintList(tab, ColorStateList.valueOf(color));
         }

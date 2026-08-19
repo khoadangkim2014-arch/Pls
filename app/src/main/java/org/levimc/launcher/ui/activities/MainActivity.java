@@ -282,23 +282,27 @@ public class MainActivity extends BaseActivity {
         accountAvatar.setImageDrawable(null);
         if (avatarProgress != null) avatarProgress.setVisibility(View.VISIBLE);
 
-        accountExecutor.execute(() -> {
-            try (Response imgResp = avatarClient.newCall(new Request.Builder().url(url).build()).execute()) {
-                Bitmap bmp = (imgResp.isSuccessful() && imgResp.body() != null) ? BitmapFactory.decodeStream(imgResp.body().byteStream()) : null;
-                runOnUiThread(() -> {
-                    if (!url.equals(accountAvatar.getTag(R.id.nav_account_avatar))) return;
-                    if (bmp != null) {
-                        AccountTextUtils.cacheAvatar(url, bmp);
-                        accountAvatar.setImageBitmap(bmp);
-                    }
-                    if (avatarProgress != null) avatarProgress.setVisibility(View.GONE);
-                });
-            } catch (Exception e) {
-                runOnUiThread(() -> {
-                    if (avatarProgress != null) avatarProgress.setVisibility(View.GONE);
-                });
-            }
-        });
+        try {
+            accountExecutor.execute(() -> {
+                try (Response imgResp = avatarClient.newCall(new Request.Builder().url(url).build()).execute()) {
+                    Bitmap bmp = (imgResp.isSuccessful() && imgResp.body() != null) ? BitmapFactory.decodeStream(imgResp.body().byteStream()) : null;
+                    runOnUiThread(() -> {
+                        if (!url.equals(accountAvatar.getTag(R.id.nav_account_avatar))) return;
+                        if (bmp != null) {
+                            AccountTextUtils.cacheAvatar(url, bmp);
+                            accountAvatar.setImageBitmap(bmp);
+                        }
+                        if (avatarProgress != null) avatarProgress.setVisibility(View.GONE);
+                    });
+                } catch (Exception e) {
+                    runOnUiThread(() -> {
+                        if (avatarProgress != null) avatarProgress.setVisibility(View.GONE);
+                    });
+                }
+            });
+        } catch (java.util.concurrent.RejectedExecutionException e) {
+            // Activity is being torn down; safe to ignore.
+        }
     }
 
     private void showAccountSwitchPopup(View anchor) {
@@ -464,24 +468,32 @@ public class MainActivity extends BaseActivity {
 
     private void showStorageMigrationPromptIfNeeded() {
         if (postMigrationInitialized || migrationPromptShown || migrationPromptCheckInFlight || storageMigrationManager == null) return;
+        if (isFinishing() || isDestroyed()) return;
         if (StorageMigrationService.isMigrationRunning(this)) {
             resumeStorageMigrationService();
             return;
         }
         migrationPromptCheckInFlight = true;
-        storageMigrationExecutor.execute(() -> {
-            boolean shouldOffer = false;
-            try { shouldOffer = storageMigrationManager.shouldOfferMigration(); } catch (Exception ignored) {}
-            boolean finalShouldOffer = shouldOffer;
-            runOnUiThread(() -> {
-                migrationPromptCheckInFlight = false;
-                if (!finalShouldOffer) {
-                    initializeAfterMigrationGate();
-                } else {
-                    showStorageMigrationPromptDialog();
-                }
+        try {
+            storageMigrationExecutor.execute(() -> {
+                boolean shouldOffer = false;
+                try { shouldOffer = storageMigrationManager.shouldOfferMigration(); } catch (Exception ignored) {}
+                boolean finalShouldOffer = shouldOffer;
+                runOnUiThread(() -> {
+                    migrationPromptCheckInFlight = false;
+                    if (isFinishing() || isDestroyed()) return;
+                    if (!finalShouldOffer) {
+                        initializeAfterMigrationGate();
+                    } else {
+                        showStorageMigrationPromptDialog();
+                    }
+                });
             });
-        });
+        } catch (java.util.concurrent.RejectedExecutionException e) {
+            // Activity is being torn down and its executor was already shut down
+            // (e.g. a posted callback fired after onDestroy()); safe to ignore.
+            migrationPromptCheckInFlight = false;
+        }
     }
 
     private void showStorageMigrationPromptDialog() {
