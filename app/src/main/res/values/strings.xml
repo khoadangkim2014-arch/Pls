@@ -901,6 +901,8 @@ Migration must complete before LeviLauncher can continue.</string>
     <string name="memory_editor_tab_search">Search</string>
     <string name="memory_editor_value">Value</string>
     <string name="memory_editor_base_loading">Loading base address…</string>
+    <string name="memory_editor_base_not_found">MC Base: Not found</string>
+    <string name="memory_editor_base_address">MC Base: %1$s</string>
     <string name="memory_editor_close">Close</string>
     <string name="memory_editor_delete">Delete</string>
     <string name="memory_editor_filter">Filter</string>

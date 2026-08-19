@@ -7,6 +7,8 @@ import org.levimc.launcher.core.mods.inbuilt.ExternalModBridge;
 import org.levimc.launcher.core.mods.inbuilt.manager.InbuiltModManager;
 import org.levimc.launcher.core.mods.inbuilt.model.ModIds;
 import org.levimc.launcher.core.mods.inbuilt.nativemod.PojavControlsMod;
+import org.levimc.launcher.core.mods.memoryeditor.MemoryAddress;
+import org.levimc.launcher.core.mods.memoryeditor.MemoryOverlayButton;
 import org.levimc.pojavcontrols.PojavControls;
 import org.levimc.pojavcontrols.PojavControlsHost;
 
@@ -27,6 +29,7 @@ public class InbuiltOverlayManager {
     private final Map<String, BaseOverlayButton> modOverlayMap = new HashMap<>();
     private final Map<String, ExternalButtonOverlay> externalButtonOverlayMap = new HashMap<>();
     private final Map<String, Integer> modPositionMap = new HashMap<>();
+    private final List<MemoryOverlayButton> memoryOverlays = new ArrayList<>();
     private ChickPetOverlay chickPetOverlay;
     private ZoomOverlay zoomOverlay;
     private SnaplookOverlay snaplookOverlay;
@@ -411,6 +414,33 @@ public class InbuiltOverlayManager {
         return modActiveStates.getOrDefault(modId, false);
     }
 
+    public void addMemoryOverlay(MemoryAddress address) {
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) return;
+        for (MemoryOverlayButton existing : memoryOverlays) {
+            if (existing.getMemoryAddress().getAddress() == address.getAddress()) {
+                return;
+            }
+        }
+        int posY = baseY + (overlays.size() + memoryOverlays.size() + 1) * SPACING;
+        MemoryOverlayButton overlayBtn = new MemoryOverlayButton(activity, address);
+        overlayBtn.show(START_X, posY);
+        memoryOverlays.add(overlayBtn);
+    }
+
+    public void removeMemoryOverlay(long addressValue) {
+        MemoryOverlayButton toRemove = null;
+        for (MemoryOverlayButton btn : memoryOverlays) {
+            if (btn.getMemoryAddress().getAddress() == addressValue) {
+                toRemove = btn;
+                break;
+            }
+        }
+        if (toRemove != null) {
+            toRemove.hide();
+            memoryOverlays.remove(toRemove);
+        }
+    }
+
 
     public void hideAllOverlays() {
         PojavControls.setEnabled(activity,
@@ -426,6 +456,10 @@ public class InbuiltOverlayManager {
         externalButtonOverlayMap.clear();
         modActiveStates.clear();
         modPositionMap.clear();
+        for (MemoryOverlayButton memOverlay : memoryOverlays) {
+            memOverlay.hide();
+        }
+        memoryOverlays.clear();
         if (chickPetOverlay != null) {
             chickPetOverlay.hide();
             chickPetOverlay = null;
