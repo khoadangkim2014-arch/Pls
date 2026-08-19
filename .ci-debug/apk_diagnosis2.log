@@ -74,23 +74,23 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:mergeDebugNativeLibs NO-SOURCE
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :pojav_controls:copyDebugJniLibsProjectOnly
+> Task :app:mergeDebugNativeLibs
 > Task :app:dataBindingMergeDependencyArtifactsDebug
 > Task :app:generateDebugResValues
+> Task :app:stripDebugDebugSymbols
 > Task :app:generateDebugResources
 > Task :minecraft:generateDebugResValues
+> Task :app:extractDebugNativeDebugMetadata
 > Task :minecraft:generateDebugResources
-> Task :app:mergeDebugNativeLibs
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :minecraft:packageDebugResources
 > Task :pojav_controls:generateDebugResValues
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
-> Task :app:stripDebugDebugSymbols
 > Task :app:packageDebugResources
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
-> Task :app:extractDebugNativeDebugMetadata
 > Task :app:processDebugNavigationResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :app:mergeDebugResources
 > Task :app:generateDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
@@ -99,8 +99,8 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :minecraft:parseDebugLocalResources
 > Task :app:parseDebugLocalResources
 > Task :app:checkDebugAarMetadata
-> Task :pojav_controls:generateDebugRFile
 > Task :minecraft:generateDebugRFile
+> Task :pojav_controls:generateDebugRFile
 > Task :app:compileDebugNavigationResources
 > Task :app:dataBindingGenBaseClassesDebug
 > Task :app:mapDebugSourceSetPaths
@@ -118,10 +118,9 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :app:processDebugManifestForPackage
 > Task :minecraft:javaPreCompileDebug
 > Task :minecraft:kaptGenerateStubsDebugKotlin
-> Task :app:processDebugResources
 > Task :pojav_controls:javaPreCompileDebug
 > Task :app:javaPreCompileDebug
-> Task :app:mergeDebugShaders
+> Task :app:processDebugResources
 > Task :minecraft:kaptDebugKotlin
 
 > Task :pojav_controls:compileDebugJavaWithJavac
@@ -136,8 +135,10 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
+> Task :app:mergeDebugShaders
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
+> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :minecraft:mergeDebugShaders
 > Task :minecraft:compileDebugShaders NO-SOURCE
 > Task :minecraft:generateDebugAssets UP-TO-DATE
@@ -145,13 +146,12 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
-> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugAssets
 > Task :minecraft:bundleLibCompileToJarDebug
 > Task :app:mergeDebugAssets
+> Task :pojav_controls:bundleLibRuntimeToJarDebug
 > Task :minecraft:bundleLibRuntimeToJarDebug
 > Task :app:compressDebugAssets
-> Task :pojav_controls:bundleLibRuntimeToJarDebug
 > Task :app:desugarDebugFileDependencies
 > Task :minecraft:processDebugJavaRes
 > Task :pojav_controls:processDebugJavaRes NO-SOURCE
