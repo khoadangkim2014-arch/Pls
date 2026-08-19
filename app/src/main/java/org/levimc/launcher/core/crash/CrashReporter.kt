@@ -39,20 +39,25 @@ object CrashReporter {
             if (installed) return
             installed = true
 
-            val appContext = application.applicationContext
-            if (isCrashProcess()) return
+            try {
+                val appContext = application.applicationContext
+                if (isCrashProcess()) return
 
-            val logDir = crashLogDir(appContext)
-            XCrash.init(application, XCrash.InitParameters().apply {
-                setAppVersion(BuildConfig.VERSION_NAME)
-                setLogDir(logDir.absolutePath)
-                setJavaCallback(buildCrashCallback(appContext, CRASH_TYPE_JAVA))
-                setNativeCallback(buildCrashCallback(appContext, CRASH_TYPE_NATIVE))
-                setAnrCallback(buildCrashCallback(appContext, CRASH_TYPE_ANR))
-                setJavaRethrow(false)
-                setNativeRethrow(false)
-                setAnrRethrow(false)
-            })
+                val logDir = crashLogDir(appContext)
+                XCrash.init(application, XCrash.InitParameters().apply {
+                    setAppVersion(BuildConfig.VERSION_NAME)
+                    setLogDir(logDir.absolutePath)
+                    setJavaCallback(buildCrashCallback(appContext, CRASH_TYPE_JAVA))
+                    setNativeCallback(buildCrashCallback(appContext, CRASH_TYPE_NATIVE))
+                    setAnrCallback(buildCrashCallback(appContext, CRASH_TYPE_ANR))
+                    setJavaRethrow(false)
+                    setNativeRethrow(false)
+                    setAnrRethrow(false)
+                })
+            } catch (t: Throwable) {
+                // Crash reporting setup must never be able to crash the app itself.
+                // If this fails, the app just runs without local crash logging.
+            }
         }
     }
 
@@ -105,13 +110,20 @@ object CrashReporter {
     }
 
     private fun crashLogDir(context: Context): File {
-        val primary = LauncherStorage.getCrashLogsDir(context)
-        if (ensureWritableDir(primary)) return primary
+        try {
+            val primary = LauncherStorage.getCrashLogsDir(context)
+            if (ensureWritableDir(primary)) return primary
+        } catch (_: Throwable) {
+            // Fall through to simpler fallbacks below.
+        }
 
-        val externalRoot = context.getExternalFilesDir(null)
-        if (externalRoot != null) {
-            val external = File(externalRoot, "crash_logs")
-            if (ensureWritableDir(external)) return external
+        try {
+            val externalRoot = context.getExternalFilesDir(null)
+            if (externalRoot != null) {
+                val external = File(externalRoot, "crash_logs")
+                if (ensureWritableDir(external)) return external
+            }
+        } catch (_: Throwable) {
         }
 
         val fallback = File(context.filesDir, "crash_logs")

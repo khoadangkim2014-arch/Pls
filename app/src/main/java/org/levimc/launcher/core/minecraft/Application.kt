@@ -13,14 +13,29 @@ class LauncherApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         context = applicationContext
-        FeatureSettings.init(applicationContext)
         CrashReporter.init(this)
-        val processName = Application.getProcessName()
+
+        try {
+            FeatureSettings.init(applicationContext)
+        } catch (_: Throwable) {
+        }
+
+        val processName = try {
+            Application.getProcessName()
+        } catch (_: Throwable) {
+            ""
+        }
         if (processName.endsWith(":crash")) return
 
-        LogcatOverlayManager.init(this)
+        try {
+            LogcatOverlayManager.init(this)
+        } catch (_: Throwable) {
+        }
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        try {
+            preferences = PreferenceManager.getDefaultSharedPreferences(this)
+        } catch (_: Throwable) {
+        }
     }
 
     companion object {
