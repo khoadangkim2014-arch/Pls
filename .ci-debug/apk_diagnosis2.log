@@ -72,31 +72,31 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :minecraft:copyDebugJniLibsProjectOnly
 > Task :pojav_controls:mergeDebugJniLibFolders
 > Task :pojav_controls:mergeDebugNativeLibs NO-SOURCE
-> Task :pojav_controls:copyDebugJniLibsProjectOnly
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :app:mergeDebugNativeLibs
+> Task :pojav_controls:copyDebugJniLibsProjectOnly
 > Task :app:dataBindingMergeDependencyArtifactsDebug
 > Task :app:generateDebugResValues
-> Task :app:stripDebugDebugSymbols
 > Task :app:generateDebugResources
 > Task :minecraft:generateDebugResValues
-> Task :app:extractDebugNativeDebugMetadata
 > Task :minecraft:generateDebugResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugNativeLibs
 > Task :minecraft:packageDebugResources
 > Task :pojav_controls:generateDebugResValues
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
-> Task :app:mergeDebugResources
+> Task :app:stripDebugDebugSymbols
+> Task :app:extractDebugNativeDebugMetadata
 > Task :app:packageDebugResources
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
+> Task :app:mergeDebugResources
 > Task :app:processDebugNavigationResources
 > Task :app:generateDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
-> Task :pojav_controls:parseDebugLocalResources
 > Task :minecraft:parseDebugLocalResources
+> Task :pojav_controls:parseDebugLocalResources
 > Task :app:parseDebugLocalResources
 > Task :app:checkDebugAarMetadata
 > Task :pojav_controls:generateDebugRFile
@@ -111,13 +111,13 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:compileDebugLibraryResources
 > Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :pojav_controls:processDebugManifest
-> Task :minecraft:compileDebugLibraryResources
 > Task :minecraft:processDebugManifest
+> Task :minecraft:compileDebugLibraryResources
 > Task :app:processDebugMainManifest
 > Task :app:processDebugManifest
-> Task :minecraft:kaptGenerateStubsDebugKotlin
 > Task :app:processDebugManifestForPackage
 > Task :minecraft:javaPreCompileDebug
+> Task :minecraft:kaptGenerateStubsDebugKotlin
 > Task :app:processDebugResources
 > Task :pojav_controls:javaPreCompileDebug
 > Task :app:javaPreCompileDebug
@@ -145,13 +145,13 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
-> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugAssets
 > Task :minecraft:bundleLibCompileToJarDebug
+> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :app:mergeDebugAssets
-> Task :pojav_controls:bundleLibRuntimeToJarDebug
 > Task :minecraft:bundleLibRuntimeToJarDebug
 > Task :app:compressDebugAssets
+> Task :pojav_controls:bundleLibRuntimeToJarDebug
 > Task :app:desugarDebugFileDependencies
 > Task :minecraft:processDebugJavaRes
 > Task :pojav_controls:processDebugJavaRes NO-SOURCE
@@ -183,5 +183,5 @@ w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/m
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:169:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:170:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
-42:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+41:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 78:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
