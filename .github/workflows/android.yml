@@ -66,7 +66,7 @@ jobs:
         run: ./gradlew assembleDebug assembleBeta assembleRelease --stacktrace --continue 2>&1 | tee /tmp/build_error.log
 
       - name: Commit build error log for diagnosis
-        if: steps.build_all.outcome == 'failure'
+        if: steps.build_all.outcome == 'failure' && !startsWith(github.ref, 'refs/tags/')
         run: |
           set +e
           mkdir -p .ci-debug
@@ -97,6 +97,10 @@ jobs:
             echo "=== lines containing Exception/Caused by/error ===" 
             grep -n -iE "Exception|Caused by|error|FAILURE" /tmp/build_error.log | head -n 40
           } > .ci-debug/apk_diagnosis2.log 2>&1
+          if [ "${{ startsWith(github.ref, 'refs/tags/') }}" = "true" ]; then
+            echo "Tag-triggered run: skipping diagnosis commit/push to main to avoid clobbering it."
+            exit 0
+          fi
           git config user.name "ci-bot"
           git config user.email "ci-bot@users.noreply.github.com"
           git add -f .ci-debug/apk_diagnosis2.log
@@ -217,6 +221,10 @@ jobs:
           files: |
             PocketCosmosLevi-${{ github.ref_name }}-release.apk
             PocketCosmosLevi-arm-androidtv-${{ github.ref_name }}-release.apk
+            app/build/outputs/apk/phone/debug/*.apk
+            app/build/outputs/apk/tv/debug/*.apk
+            app/build/outputs/apk/phone/release/*.apk
+            app/build/outputs/apk/tv/release/*.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
