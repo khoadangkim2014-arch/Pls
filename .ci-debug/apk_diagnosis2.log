@@ -1,10 +1,36 @@
 === find app/build -name '*.apk' ===
+app/build/outputs/apk/release/app-release-unsigned.apk
+app/build/outputs/apk/beta/app-beta-unsigned.apk
+app/build/outputs/apk/debug/app-debug.apk
 === app/build/outputs tree ===
 app/build/outputs
+app/build/outputs/sdk-dependencies
+app/build/outputs/sdk-dependencies/release
+app/build/outputs/sdk-dependencies/release/sdkDependencies.txt
+app/build/outputs/sdk-dependencies/beta
+app/build/outputs/sdk-dependencies/beta/sdkDependencies.txt
+app/build/outputs/apk
+app/build/outputs/apk/release
+app/build/outputs/apk/release/app-release-unsigned.apk
+app/build/outputs/apk/release/baselineProfiles
+app/build/outputs/apk/release/baselineProfiles/1
+app/build/outputs/apk/release/baselineProfiles/0
+app/build/outputs/apk/release/output-metadata.json
+app/build/outputs/apk/beta
+app/build/outputs/apk/beta/baselineProfiles
+app/build/outputs/apk/beta/baselineProfiles/1
+app/build/outputs/apk/beta/baselineProfiles/0
+app/build/outputs/apk/beta/app-beta-unsigned.apk
+app/build/outputs/apk/beta/output-metadata.json
+app/build/outputs/apk/debug
+app/build/outputs/apk/debug/output-metadata.json
+app/build/outputs/apk/debug/app-debug.apk
 app/build/outputs/logs
+app/build/outputs/logs/manifest-merger-release-report.txt
 app/build/outputs/logs/manifest-merger-debug-report.txt
+app/build/outputs/logs/manifest-merger-beta-report.txt
 === full build_error.log line count ===
-403 /tmp/build_error.log
+522 /tmp/build_error.log
 === first 150 lines (where the actual error usually is) ===
 Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
 .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
@@ -59,13 +85,13 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
 > Task :app:stripDebugDebugSymbols
-> Task :app:extractDebugNativeDebugMetadata
-> Task :app:mergeDebugResources
 > Task :app:packageDebugResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
+> Task :app:extractDebugNativeDebugMetadata
 > Task :app:processDebugNavigationResources
+> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
+> Task :app:mergeDebugResources
 > Task :app:generateDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
@@ -83,10 +109,10 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :minecraft:extractDeepLinksDebug
 > Task :pojav_controls:extractDeepLinksDebug
 > Task :pojav_controls:compileDebugLibraryResources
-> Task :minecraft:processDebugManifest
 > Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :pojav_controls:processDebugManifest
 > Task :minecraft:compileDebugLibraryResources
+> Task :minecraft:processDebugManifest
 > Task :app:processDebugMainManifest
 > Task :app:processDebugManifest
 > Task :pojav_controls:javaPreCompileDebug
@@ -110,18 +136,18 @@ Note: Recompile with -Xlint:unchecked for details.
 
 > Task :app:javaPreCompileDebug
 > Task :app:mergeDebugShaders
-> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :app:compileDebugShaders NO-SOURCE
 > Task :app:generateDebugAssets UP-TO-DATE
 > Task :minecraft:mergeDebugShaders
+> Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :minecraft:compileDebugShaders NO-SOURCE
 > Task :minecraft:generateDebugAssets UP-TO-DATE
 > Task :minecraft:mergeDebugAssets
-> Task :minecraft:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
 > Task :pojav_controls:mergeDebugAssets
+> Task :minecraft:bundleLibCompileToJarDebug
 > Task :app:mergeDebugAssets
 > Task :minecraft:bundleLibRuntimeToJarDebug
 > Task :app:compressDebugAssets
@@ -158,21 +184,4 @@ w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/m
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:147:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
 41:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
-79:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
-164:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/activities/BaseActivity.java:176: error: cannot find symbol
-173:1 error
-179:FAILURE: Build failed with an exception.
-184:  /home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/activities/BaseActivity.java:176: error: cannot find symbol
-193:  1 error
-196:> Check your code and dependencies to fix the compilation error(s)
-199:* Exception is:
-200:org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:compileDebugJavaWithJavac'.
-202:	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
-210:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
-231:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
-233:Caused by: org.gradle.api.internal.tasks.compile.CompilationFailedException: Compilation failed; see the compiler output below.
-234:/home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/ui/activities/BaseActivity.java:176: error: cannot find symbol
-243:1 error
-246:	at org.gradle.api.internal.tasks.compile.NormalizingJavaCompiler.delegateAndHandleErrors(NormalizingJavaCompiler.java:98)
-371:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
-392:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+78:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
