@@ -39,7 +39,7 @@ android {
     defaultConfig {
         applicationId "org.levimc.launcher.pls"
         minSdkVersion 28
-        targetSdkVersion 35
+        targetSdkVersion 36
         versionCode getVersionCodeByTimestamp()
         versionName getGitTag()
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"

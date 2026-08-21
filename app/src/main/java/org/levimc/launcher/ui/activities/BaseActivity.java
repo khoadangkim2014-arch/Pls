@@ -173,14 +173,6 @@ public class BaseActivity extends AppCompatActivity {
                 navRoot.getBackground().mutate().setColorFilter(
                         overlay, android.graphics.PorterDuff.Mode.SRC_ATOP);
             }
-            View navDivider = findViewById(R.id.nav_divider);
-            if (navDivider != null) {
-                boolean isDark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
-                        == Configuration.UI_MODE_NIGHT_YES;
-                navDivider.setBackgroundColor(isDark
-                        ? android.graphics.Color.argb(40, 255, 255, 255)
-                        : android.graphics.Color.argb(40, 0, 0, 0));
-            }
         }
 
         View backButton = findViewById(R.id.nav_back_button);

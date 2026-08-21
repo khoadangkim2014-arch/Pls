@@ -1,6 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Liquid glass chip / pill button -->
+<!-- Liquid glass chip / pill button, with a bright focus ring for D-pad/TV navigation -->
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_checked="true" android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/glass_primary_fill" />
+                    <stroke android:width="2dp" android:color="@color/on_primary" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
+    <item android:state_selected="true" android:state_focused="true">
+        <layer-list>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/primary" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+            <item>
+                <shape android:shape="rectangle">
+                    <solid android:color="@color/glass_primary_fill" />
+                    <stroke android:width="2dp" android:color="@color/on_primary" />
+                    <corners android:radius="20dp" />
+                </shape>
+            </item>
+        </layer-list>
+    </item>
     <item android:state_checked="true">
         <layer-list>
             <item>
@@ -34,6 +68,13 @@
                 </shape>
             </item>
         </layer-list>
+    </item>
+    <item android:state_focused="true">
+        <shape android:shape="rectangle">
+            <solid android:color="@color/glass_fill_strong" />
+            <stroke android:width="2dp" android:color="@color/primary" />
+            <corners android:radius="20dp" />
+        </shape>
     </item>
     <item>
         <shape android:shape="rectangle">

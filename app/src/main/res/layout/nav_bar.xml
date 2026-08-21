@@ -73,6 +73,8 @@
 
                 <TextView
                     android:id="@+id/nav_tab_launch"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginEnd="6dp"
@@ -89,6 +91,8 @@
 
                 <TextView
                     android:id="@+id/nav_tab_instances"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginEnd="6dp"
@@ -104,6 +108,8 @@
 
                 <TextView
                     android:id="@+id/nav_tab_about"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:layout_marginEnd="6dp"
@@ -119,6 +125,8 @@
 
                 <TextView
                     android:id="@+id/nav_tab_settings"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
                     android:layout_width="wrap_content"
                     android:layout_height="32dp"
                     android:gravity="center"

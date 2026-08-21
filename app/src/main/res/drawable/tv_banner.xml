@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Android TV banner (required 320x180dp, 16:9). Simple branded placeholder;
+     swap for real artwork when available. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="320dp" android:height="180dp"
+    android:viewportWidth="320" android:viewportHeight="180">
+    <path android:fillColor="#1B5E20" android:pathData="M0,0h320v180h-320z" />
+    <path android:fillColor="#4CAF50" android:pathData="M0,0h320v180h-320z" android:fillAlpha="0.12" />
+    <!-- leaf mark, reusing the launcher icon silhouette -->
+    <path android:fillColor="#A5D6A7" android:pathData="M160,52C142,52 128,66 128,84c0,20 20,36 32,36c12,0 32,-16 32,-36C192,66 178,52 160,52z" />
+</vector>
