@@ -1,36 +1,38 @@
 === find app/build -name '*.apk' ===
-app/build/outputs/apk/release/app-release-unsigned.apk
-app/build/outputs/apk/beta/app-beta-unsigned.apk
-app/build/outputs/apk/debug/app-debug.apk
+app/build/outputs/apk/phone/debug/PocketCosmosLevi-debug.apk
+app/build/outputs/apk/tv/beta/PocketCosmosLevi-arm-androidtv-beta.apk
+app/build/outputs/apk/tv/debug/PocketCosmosLevi-arm-androidtv-debug.apk
 === app/build/outputs tree ===
 app/build/outputs
 app/build/outputs/sdk-dependencies
-app/build/outputs/sdk-dependencies/release
-app/build/outputs/sdk-dependencies/release/sdkDependencies.txt
-app/build/outputs/sdk-dependencies/beta
-app/build/outputs/sdk-dependencies/beta/sdkDependencies.txt
+app/build/outputs/sdk-dependencies/tvBeta
+app/build/outputs/sdk-dependencies/tvBeta/sdkDependencies.txt
+app/build/outputs/sdk-dependencies/phoneRelease
+app/build/outputs/sdk-dependencies/phoneRelease/sdkDependencies.txt
+app/build/outputs/sdk-dependencies/phoneBeta
+app/build/outputs/sdk-dependencies/phoneBeta/sdkDependencies.txt
 app/build/outputs/apk
-app/build/outputs/apk/release
-app/build/outputs/apk/release/app-release-unsigned.apk
-app/build/outputs/apk/release/baselineProfiles
-app/build/outputs/apk/release/baselineProfiles/1
-app/build/outputs/apk/release/baselineProfiles/0
-app/build/outputs/apk/release/output-metadata.json
-app/build/outputs/apk/beta
-app/build/outputs/apk/beta/baselineProfiles
-app/build/outputs/apk/beta/baselineProfiles/1
-app/build/outputs/apk/beta/baselineProfiles/0
-app/build/outputs/apk/beta/app-beta-unsigned.apk
-app/build/outputs/apk/beta/output-metadata.json
-app/build/outputs/apk/debug
-app/build/outputs/apk/debug/output-metadata.json
-app/build/outputs/apk/debug/app-debug.apk
+app/build/outputs/apk/phone
+app/build/outputs/apk/phone/beta
+app/build/outputs/apk/phone/debug
+app/build/outputs/apk/phone/debug/PocketCosmosLevi-debug.apk
+app/build/outputs/apk/phone/debug/output-metadata.json
+app/build/outputs/apk/tv
+app/build/outputs/apk/tv/beta
+app/build/outputs/apk/tv/beta/baselineProfiles
+app/build/outputs/apk/tv/beta/PocketCosmosLevi-arm-androidtv-beta.apk
+app/build/outputs/apk/tv/beta/output-metadata.json
+app/build/outputs/apk/tv/debug
+app/build/outputs/apk/tv/debug/output-metadata.json
+app/build/outputs/apk/tv/debug/PocketCosmosLevi-arm-androidtv-debug.apk
 app/build/outputs/logs
-app/build/outputs/logs/manifest-merger-release-report.txt
-app/build/outputs/logs/manifest-merger-debug-report.txt
-app/build/outputs/logs/manifest-merger-beta-report.txt
+app/build/outputs/logs/manifest-merger-phone-release-report.txt
+app/build/outputs/logs/manifest-merger-tv-debug-report.txt
+app/build/outputs/logs/manifest-merger-phone-debug-report.txt
+app/build/outputs/logs/manifest-merger-tv-beta-report.txt
+app/build/outputs/logs/manifest-merger-phone-beta-report.txt
 === full build_error.log line count ===
-522 /tmp/build_error.log
+923 /tmp/build_error.log
 === first 150 lines (where the actual error usually is) ===
 Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
 .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
@@ -50,7 +52,7 @@ Starting a Gradle Daemon (subsequent builds will be faster)
 fatal: No names found, cannot describe anything.
 
 > Task :app:preBuild UP-TO-DATE
-> Task :app:preDebugBuild UP-TO-DATE
+> Task :app:preTvDebugBuild UP-TO-DATE
 
 > Task :app:configureCMakeDebug[arm64-v8a]
 Checking the license for package CMake 3.22.1 in /usr/local/lib/android/sdk/licenses
@@ -62,7 +64,8 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 "Install CMake 3.22.1 v.3.22.1" finished.
 
 > Task :app:buildCMakeDebug[arm64-v8a]
-> Task :app:mergeDebugJniLibFolders
+> Task :app:prePhoneDebugBuild UP-TO-DATE
+> Task :app:mergePhoneDebugJniLibFolders
 > Task :minecraft:preBuild UP-TO-DATE
 > Task :minecraft:preDebugBuild UP-TO-DATE
 > Task :minecraft:mergeDebugJniLibFolders
@@ -74,52 +77,52 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:mergeDebugNativeLibs NO-SOURCE
 > Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
 > Task :pojav_controls:copyDebugJniLibsProjectOnly
-> Task :app:dataBindingMergeDependencyArtifactsDebug
-> Task :app:generateDebugResValues
-> Task :app:generateDebugResources
+> Task :app:dataBindingMergeDependencyArtifactsPhoneDebug
+> Task :app:generatePhoneDebugResValues
+> Task :app:mergePhoneDebugNativeLibs
+> Task :app:generatePhoneDebugResources
 > Task :minecraft:generateDebugResValues
+> Task :app:stripPhoneDebugDebugSymbols
 > Task :minecraft:generateDebugResources
-> Task :app:mergeDebugNativeLibs
+> Task :app:extractPhoneDebugNativeDebugMetadata
 > Task :minecraft:packageDebugResources
+> Task :app:mergePhoneDebugNativeDebugMetadata NO-SOURCE
 > Task :pojav_controls:generateDebugResValues
 > Task :pojav_controls:generateDebugResources
 > Task :pojav_controls:packageDebugResources
-> Task :app:stripDebugDebugSymbols
-> Task :app:packageDebugResources
+> Task :app:packagePhoneDebugResources
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
-> Task :app:extractDebugNativeDebugMetadata
-> Task :app:processDebugNavigationResources
-> Task :app:mergeDebugNativeDebugMetadata NO-SOURCE
-> Task :app:mergeDebugResources
-> Task :app:generateDebugBuildConfig
+> Task :app:processPhoneDebugNavigationResources
+> Task :app:mergePhoneDebugResources
+> Task :app:generatePhoneDebugBuildConfig
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
 > Task :pojav_controls:parseDebugLocalResources
 > Task :minecraft:parseDebugLocalResources
-> Task :app:parseDebugLocalResources
-> Task :app:checkDebugAarMetadata
+> Task :app:parsePhoneDebugLocalResources
+> Task :app:checkPhoneDebugAarMetadata
 > Task :pojav_controls:generateDebugRFile
 > Task :minecraft:generateDebugRFile
-> Task :app:compileDebugNavigationResources
-> Task :app:dataBindingGenBaseClassesDebug
-> Task :app:mapDebugSourceSetPaths
-> Task :app:createDebugCompatibleScreenManifests
-> Task :app:extractDeepLinksDebug
+> Task :app:compilePhoneDebugNavigationResources
+> Task :app:dataBindingGenBaseClassesPhoneDebug
+> Task :app:mapPhoneDebugSourceSetPaths
+> Task :app:createPhoneDebugCompatibleScreenManifests
+> Task :app:extractDeepLinksPhoneDebug
 > Task :minecraft:extractDeepLinksDebug
 > Task :pojav_controls:extractDeepLinksDebug
 > Task :pojav_controls:compileDebugLibraryResources
 > Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
-> Task :pojav_controls:processDebugManifest
 > Task :minecraft:compileDebugLibraryResources
+> Task :pojav_controls:processDebugManifest
 > Task :minecraft:processDebugManifest
-> Task :app:processDebugMainManifest
-> Task :app:processDebugManifest
+> Task :app:processPhoneDebugMainManifest
+> Task :app:processPhoneDebugManifest
+> Task :app:processPhoneDebugManifestForPackage
 > Task :pojav_controls:javaPreCompileDebug
-> Task :app:processDebugManifestForPackage
 > Task :minecraft:javaPreCompileDebug
 > Task :minecraft:kaptGenerateStubsDebugKotlin
-> Task :app:processDebugResources
+> Task :app:processPhoneDebugResources
 > Task :minecraft:kaptDebugKotlin
 
 > Task :pojav_controls:compileDebugJavaWithJavac
@@ -134,10 +137,10 @@ Note: Recompile with -Xlint:deprecation for details.
 Note: Some input files use unchecked or unsafe operations.
 Note: Recompile with -Xlint:unchecked for details.
 
-> Task :app:javaPreCompileDebug
-> Task :app:mergeDebugShaders
-> Task :app:compileDebugShaders NO-SOURCE
-> Task :app:generateDebugAssets UP-TO-DATE
+> Task :app:javaPreCompilePhoneDebug
+> Task :app:mergePhoneDebugShaders
+> Task :app:compilePhoneDebugShaders NO-SOURCE
+> Task :app:generatePhoneDebugAssets UP-TO-DATE
 > Task :minecraft:mergeDebugShaders
 > Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :minecraft:compileDebugShaders NO-SOURCE
@@ -148,18 +151,16 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
 > Task :pojav_controls:mergeDebugAssets
 > Task :minecraft:bundleLibCompileToJarDebug
-> Task :app:mergeDebugAssets
-> Task :minecraft:bundleLibRuntimeToJarDebug
-> Task :app:compressDebugAssets
-> Task :pojav_controls:bundleLibRuntimeToJarDebug
-> Task :app:desugarDebugFileDependencies
-> Task :minecraft:processDebugJavaRes
-> Task :pojav_controls:processDebugJavaRes NO-SOURCE
-> Task :app:checkDebugDuplicateClasses
-> Task :app:compileDebugKotlin
-> Task :app:mergeExtDexDebug
+> Task :app:mergePhoneDebugAssets
+> Task :app:compressPhoneDebugAssets
+> Task :app:desugarPhoneDebugFileDependencies
+> Task :pojav_controls:bundleLibRuntimeToDirDebug
+> Task :app:checkPhoneDebugDuplicateClasses
+> Task :minecraft:bundleLibRuntimeToDirDebug
+> Task :app:compilePhoneDebugKotlin
+> Task :app:mergeExtDexPhoneDebug
 
-> Task :app:compileDebugKotlin
+> Task :app:compilePhoneDebugKotlin
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:421:47 'fun newInstance(): AssetManager!' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:629:49 'constructor(p0: AssetManager!, p1: DisplayMetrics!, p2: Configuration!): Resources' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftActivity.kt:515:36 'fun toggleSoftInput(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
@@ -182,6 +183,23 @@ w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/m
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:356:22 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:101:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
 w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:147:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:169:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
-41:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
-78:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
+42:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
+79:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
+694:FAILURE: Build failed with an exception.
+698:> A failure occurred while executing com.android.build.gradle.tasks.PackageAndroidArtifact$IncrementalSplitterRunnable
+705:* Exception is:
+706:org.gradle.api.tasks.TaskExecutionException: Execution failed for task ':app:packagePhoneBeta'.
+708:	at org.gradle.internal.Try$Failure.ifSuccessfulOrElse(Try.java:293)
+716:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+737:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+739:Caused by: org.gradle.workers.internal.DefaultWorkerExecutor$WorkExecutionException: A failure occurred while executing com.android.build.gradle.tasks.PackageAndroidArtifact$IncrementalSplitterRunnable
+741:	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$2(DefaultAsyncWorkTracker.java:130)
+746:	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:126)
+747:	at org.gradle.internal.work.DefaultAsyncWorkTracker.lambda$waitForItemsAndGatherFailures$0(DefaultAsyncWorkTracker.java:100)
+752:	at org.gradle.internal.work.DefaultAsyncWorkTracker.waitForItemsAndGatherFailures(DefaultAsyncWorkTracker.java:100)
+846:	at org.gradle.api.internal.tasks.execution.CatchExceptionTaskExecuter.execute(CatchExceptionTaskExecuter.java:36)
+867:	at org.gradle.internal.concurrent.ExecutorPolicy$CatchAndRecordFailures.onExecute(ExecutorPolicy.java:64)
+869:Caused by: java.lang.OutOfMemoryError
+907:Caused by: java.lang.OutOfMemoryError: Java heap space
