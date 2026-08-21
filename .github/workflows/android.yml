@@ -63,7 +63,7 @@ jobs:
       - name: Build Debug, Beta and Unsigned Release APKs
         id: build_all
         continue-on-error: true
-        run: ./gradlew assembleDebug assembleBeta assembleRelease --stacktrace 2>&1 | tee /tmp/build_error.log
+        run: ./gradlew assembleDebug assembleBeta assembleRelease --stacktrace --continue 2>&1 | tee /tmp/build_error.log
 
       - name: Commit build error log for diagnosis
         if: steps.build_all.outcome == 'failure'
