@@ -162,12 +162,16 @@ public class BaseActivity extends AppCompatActivity {
 
         if (pm.hasBackgroundImage()) {
             View navRoot = findViewById(R.id.nav_bar_root);
-            if (navRoot != null) {
+            if (navRoot != null && navRoot.getBackground() != null) {
                 boolean isDark = (getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                         == Configuration.UI_MODE_NIGHT_YES;
-                navRoot.setBackgroundColor(isDark
+                int overlay = isDark
                         ? android.graphics.Color.argb(90, 25, 25, 25)
-                        : android.graphics.Color.argb(110, 255, 255, 255));
+                        : android.graphics.Color.argb(110, 255, 255, 255);
+                // Tint the existing glass drawable instead of replacing it, so the
+                // floating pill's rounded shape/border/sheen survive personalization.
+                navRoot.getBackground().mutate().setColorFilter(
+                        overlay, android.graphics.PorterDuff.Mode.SRC_ATOP);
             }
             View navDivider = findViewById(R.id.nav_divider);
             if (navDivider != null) {
@@ -219,6 +223,10 @@ public class BaseActivity extends AppCompatActivity {
                 startActivity(new Intent(this, SettingsActivity.class));
             }
         });
+        DynamicAnim.applyPressScale(findViewById(R.id.nav_tab_launch));
+        DynamicAnim.applyPressScale(findViewById(R.id.nav_tab_instances));
+        DynamicAnim.applyPressScale(findViewById(R.id.nav_tab_about));
+        DynamicAnim.applyPressScale(findViewById(R.id.nav_tab_settings));
 
         refreshNavAccountUI();
     }

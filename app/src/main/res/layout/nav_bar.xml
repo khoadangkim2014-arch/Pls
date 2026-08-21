@@ -4,14 +4,19 @@
     android:id="@+id/nav_bar_root"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/bg_glass_toolbar"
+    android:layout_marginStart="10dp"
+    android:layout_marginEnd="10dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/bg_glass_floating_bar"
+    android:elevation="6dp"
     android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="10dp">
+        android:layout_height="56dp"
+        android:paddingHorizontal="14dp"
+        android:paddingVertical="12dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -184,11 +189,5 @@
         </LinearLayout>
 
     </FrameLayout>
-
-    <View
-        android:id="@+id/nav_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/glass_border" />
 
 </LinearLayout>
