@@ -311,7 +311,7 @@ public class InstancesActivity extends BaseActivity {
         btnImportPkg.setVisibility(View.VISIBLE);
         btnImportPkg.setSelected(true);
         applyAccentButtonStyle(btnImportPkg);
-        btnImportPkg.setOnClickListener(v -> startCustomPackageFilePicker());
+        btnImportPkg.setOnClickListener(v -> customPackageImportManager.showInstalledAppsPicker());
     }
 
     private void setupBackupImportButton() {

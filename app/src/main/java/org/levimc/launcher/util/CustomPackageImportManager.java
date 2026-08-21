@@ -2,10 +2,26 @@ package org.levimc.launcher.util;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.OpenableColumns;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import org.levimc.launcher.R;
 import org.levimc.launcher.core.versions.GameVersion;
@@ -17,7 +33,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -39,6 +57,7 @@ public class CustomPackageImportManager {
     }
 
     private OnImportCompleteListener listener;
+    private CustomAlertDialog currentPickerDialog;
 
     public CustomPackageImportManager(Activity activity) {
         this.activity = activity;
@@ -73,12 +92,103 @@ public class CustomPackageImportManager {
         }
 
         String packageName = fileName.substring(0, fileName.length() - 4);
+        performImport(uri, packageName);
+    }
+
+    /**
+     * Entry point for the "pick an installed app" flow: shows a searchable list of
+     * currently installed, launchable apps and imports the selected app's own APK
+     * (which is itself a valid zip archive) the same way a manually-picked .zip is.
+     */
+    public void showInstalledAppsPicker() {
+        View contentView = LayoutInflater.from(activity).inflate(R.layout.dialog_installed_apps_picker, null, false);
+        ProgressBar progress = contentView.findViewById(R.id.apps_loading_progress);
+        TextView emptyText = contentView.findViewById(R.id.apps_empty_text);
+        RecyclerView recyclerView = contentView.findViewById(R.id.installed_apps_recycler_view);
+        EditText searchInput = contentView.findViewById(R.id.app_search_input);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        InstalledAppAdapter adapter = new InstalledAppAdapter(app -> {
+            currentPickerDialog.dismiss();
+            importFromInstalledApp(app);
+        });
+        recyclerView.setAdapter(adapter);
+
+        currentPickerDialog = new CustomAlertDialog(activity)
+                .setTitleText(activity.getString(R.string.custom_package_pick_app_title))
+                .setCustomView(contentView)
+                .setNegativeButton(activity.getString(R.string.exit), v -> {});
+        currentPickerDialog.show();
+
+        searchInput.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filter(s.toString());
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
+        Executors.newSingleThreadExecutor().execute(() -> {
+            List<InstalledAppInfo> apps = loadLaunchableApps();
+            activity.runOnUiThread(() -> {
+                progress.setVisibility(View.GONE);
+                if (apps.isEmpty()) {
+                    emptyText.setVisibility(View.VISIBLE);
+                } else {
+                    recyclerView.setVisibility(View.VISIBLE);
+                    adapter.setApps(apps);
+                }
+            });
+        });
+    }
+
+    private List<InstalledAppInfo> loadLaunchableApps() {
+        PackageManager pm = activity.getPackageManager();
+        List<ApplicationInfo> installed = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+        List<InstalledAppInfo> result = new ArrayList<>();
+        String ownPackage = activity.getPackageName();
+        for (ApplicationInfo appInfo : installed) {
+            if (appInfo.packageName.equals(ownPackage)) continue;
+            if (pm.getLaunchIntentForPackage(appInfo.packageName) == null) continue;
+            String label;
+            Drawable icon;
+            try {
+                label = String.valueOf(pm.getApplicationLabel(appInfo));
+                icon = pm.getApplicationIcon(appInfo);
+            } catch (Exception e) {
+                continue;
+            }
+            result.add(new InstalledAppInfo(appInfo, label, icon));
+        }
+        result.sort((a, b) -> a.label.compareToIgnoreCase(b.label));
+        return result;
+    }
+
+    private void importFromInstalledApp(InstalledAppInfo app) {
+        String sourceDir = app.appInfo.sourceDir;
+        if (sourceDir == null) {
+            notifyError(activity.getString(R.string.custom_package_extract_failed, "no source APK"));
+            return;
+        }
+        String safeName = app.label.replaceAll("[^a-zA-Z0-9._-]", "_");
+        if (safeName.isEmpty()) safeName = app.appInfo.packageName;
+        Uri uri = Uri.fromFile(new File(sourceDir));
+        performImport(uri, safeName);
+    }
+
+    private void performImport(Uri sourceUri, String packageName) {
+        GameVersion selected = VersionManager.get(activity).getSelectedVersion();
+        if (selected == null || selected.versionDir == null) {
+            notifyError(activity.getString(R.string.custom_package_no_version));
+            return;
+        }
+
         File destRoot = new File(selected.versionDir, CUSTOM_PACKAGES_DIR);
         File destDir = new File(destRoot, packageName);
 
         Executors.newSingleThreadExecutor().execute(() -> {
             try {
-                extractZip(uri, destDir);
+                extractZip(sourceUri, destDir);
                 activity.runOnUiThread(() -> {
                     Toast.makeText(activity,
                             activity.getString(R.string.custom_package_installed, packageName),
@@ -177,5 +287,92 @@ public class CustomPackageImportManager {
             result = uri.getLastPathSegment();
         }
         return result;
+    }
+
+    private static final class InstalledAppInfo {
+        final ApplicationInfo appInfo;
+        final String label;
+        final Drawable icon;
+
+        InstalledAppInfo(ApplicationInfo appInfo, String label, Drawable icon) {
+            this.appInfo = appInfo;
+            this.label = label;
+            this.icon = icon;
+        }
+    }
+
+    private interface OnAppPickedListener {
+        void onAppPicked(InstalledAppInfo app);
+    }
+
+    private static final class InstalledAppAdapter extends RecyclerView.Adapter<InstalledAppAdapter.ViewHolder> {
+        private final List<InstalledAppInfo> allApps = new ArrayList<>();
+        private final List<InstalledAppInfo> shownApps = new ArrayList<>();
+        private final OnAppPickedListener listener;
+
+        InstalledAppAdapter(OnAppPickedListener listener) {
+            this.listener = listener;
+        }
+
+        void setApps(List<InstalledAppInfo> apps) {
+            allApps.clear();
+            allApps.addAll(apps);
+            shownApps.clear();
+            shownApps.addAll(apps);
+            notifyDataSetChanged();
+        }
+
+        void filter(String query) {
+            shownApps.clear();
+            if (query == null || query.trim().isEmpty()) {
+                shownApps.addAll(allApps);
+            } else {
+                String lower = query.toLowerCase();
+                for (InstalledAppInfo app : allApps) {
+                    if (app.label.toLowerCase().contains(lower)
+                            || app.appInfo.packageName.toLowerCase().contains(lower)) {
+                        shownApps.add(app);
+                    }
+                }
+            }
+            notifyDataSetChanged();
+        }
+
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.item_installed_app, parent, false);
+            return new ViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            InstalledAppInfo app = shownApps.get(position);
+            holder.label.setText(app.label);
+            holder.packageName.setText(app.appInfo.packageName);
+            holder.icon.setImageDrawable(app.icon);
+            holder.itemView.setOnClickListener(v -> {
+                if (listener != null) listener.onAppPicked(app);
+            });
+        }
+
+        @Override
+        public int getItemCount() {
+            return shownApps.size();
+        }
+
+        static class ViewHolder extends RecyclerView.ViewHolder {
+            final ImageView icon;
+            final TextView label;
+            final TextView packageName;
+
+            ViewHolder(@NonNull View itemView) {
+                super(itemView);
+                icon = itemView.findViewById(R.id.app_icon);
+                label = itemView.findViewById(R.id.app_label);
+                packageName = itemView.findViewById(R.id.app_package_name);
+            }
+        }
     }
 }

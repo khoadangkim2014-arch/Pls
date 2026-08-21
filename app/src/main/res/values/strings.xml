@@ -82,6 +82,8 @@
     <string name="custom_package_no_version">Select a game version first before importing a custom package.</string>
     <string name="custom_package_installed">Custom package \"%1$s\" installed.</string>
     <string name="custom_package_extract_failed">Failed to extract custom package: %1$s</string>
+    <string name="custom_package_pick_app_title">Choose an app to import</string>
+    <string name="custom_package_no_apps_found">No installed apps found.</string>
     <string name="install">Install</string>
     <string name="version_name">Version name</string>
     <string name="name_invalid">This name cannot be used or is already taken!</string>
