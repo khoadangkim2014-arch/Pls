@@ -103,33 +103,55 @@ jobs:
           git commit -m "ci: capture apk diagnosis 2 [skip ci]"
           git push --force origin HEAD:main
 
-      - name: Upload Debug APK
+      - name: Upload Debug APK (Phone)
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-debug-apk
-          path: app/build/outputs/apk/debug/*.apk
+          path: app/build/outputs/apk/phone/debug/*.apk
           if-no-files-found: warn
 
-      - name: Upload Unsigned Release APK
+      - name: Upload Debug APK (Android TV)
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: PocketCosmosLevi-arm-androidtv-debug-apk
+          path: app/build/outputs/apk/tv/debug/*.apk
+          if-no-files-found: warn
+
+      - name: Upload Unsigned Release APK (Phone)
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-release-unsigned-apk
-          path: app/build/outputs/apk/release/*-unsigned.apk
+          path: app/build/outputs/apk/phone/release/*.apk
           if-no-files-found: warn
 
-      - name: Upload Beta APK
+      - name: Upload Unsigned Release APK (Android TV)
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: PocketCosmosLevi-arm-androidtv-release-unsigned-apk
+          path: app/build/outputs/apk/tv/release/*.apk
+          if-no-files-found: warn
+
+      - name: Upload Beta APK (Phone)
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-beta-apk
-          path: app/build/outputs/apk/beta/*.apk
+          path: app/build/outputs/apk/phone/beta/*.apk
           if-no-files-found: warn
 
-      - name: Sign Release APK
+      - name: Upload Beta APK (Android TV)
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: PocketCosmosLevi-arm-androidtv-beta-apk
+          path: app/build/outputs/apk/tv/beta/*.apk
+          if-no-files-found: warn
+
+      - name: Sign Release APK (Phone)
         if: startsWith(github.ref, 'refs/tags/')
         uses: kevin-david/zipalign-sign-android-release@v2
-        id: sign_app
+        id: sign_app_phone
+        continue-on-error: true
         with:
-          releaseDirectory: app/build/outputs/apk/release
+          releaseDirectory: app/build/outputs/apk/phone/release
           signingKeyBase64: ${{ secrets.SIGNING_KEY_STORE }}
           alias: ${{ secrets.SIGNING_KEY_ALIAS }}
           keyStorePassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
@@ -138,27 +160,63 @@ jobs:
         env:
           BUILD_TOOLS_VERSION: "35.0.0"
 
-      - name: Rename APK with tag
+      - name: Sign Release APK (Android TV)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: kevin-david/zipalign-sign-android-release@v2
+        id: sign_app_tv
+        continue-on-error: true
+        with:
+          releaseDirectory: app/build/outputs/apk/tv/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY_STORE }}
+          alias: ${{ secrets.SIGNING_KEY_ALIAS }}
+          keyStorePassword: ${{ secrets.SIGNING_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          zipAlign: true
+        env:
+          BUILD_TOOLS_VERSION: "35.0.0"
+
+      - name: Rename Signed APKs with tag
         if: startsWith(github.ref, 'refs/tags/')
         run: |
+          set +e
           TAG=${GITHUB_REF_NAME}
-          SIGNED_APK="${{ steps.sign_app.outputs.signedReleaseFile }}"
-          APK_DST="PocketCosmosLevi-${TAG}-release.apk"
-          cp "$SIGNED_APK" "$APK_DST"
-          echo "Signed APK renamed to $APK_DST"
+          if [ -n "${{ steps.sign_app_phone.outputs.signedReleaseFile }}" ]; then
+            cp "${{ steps.sign_app_phone.outputs.signedReleaseFile }}" "PocketCosmosLevi-${TAG}-release.apk"
+            echo "Phone signed APK renamed to PocketCosmosLevi-${TAG}-release.apk"
+          else
+            echo "Phone signing did not produce an output (likely missing signing secrets); skipping."
+          fi
+          if [ -n "${{ steps.sign_app_tv.outputs.signedReleaseFile }}" ]; then
+            cp "${{ steps.sign_app_tv.outputs.signedReleaseFile }}" "PocketCosmosLevi-arm-androidtv-${TAG}-release.apk"
+            echo "TV signed APK renamed to PocketCosmosLevi-arm-androidtv-${TAG}-release.apk"
+          else
+            echo "TV signing did not produce an output (likely missing signing secrets); skipping."
+          fi
 
-      - name: Upload Signed APK Artifact
+      - name: Upload Signed APK Artifact (Phone)
         if: startsWith(github.ref, 'refs/tags/')
         uses: actions/upload-artifact@v4.6.2
         with:
           name: PocketCosmosLevi-${{ github.ref_name }}-release.apk
           path: PocketCosmosLevi-${{ github.ref_name }}-release.apk
+          if-no-files-found: warn
+
+      - name: Upload Signed APK Artifact (Android TV)
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: actions/upload-artifact@v4.6.2
+        with:
+          name: PocketCosmosLevi-arm-androidtv-${{ github.ref_name }}-release.apk
+          path: PocketCosmosLevi-arm-androidtv-${{ github.ref_name }}-release.apk
+          if-no-files-found: warn
 
       - name: Release APK to GitHub Releases
         if: startsWith(github.ref, 'refs/tags/')
         uses: softprops/action-gh-release@v2
         with:
-          files: PocketCosmosLevi-${{ github.ref_name }}-release.apk
+          fail_on_unmatched_files: false
+          files: |
+            PocketCosmosLevi-${{ github.ref_name }}-release.apk
+            PocketCosmosLevi-arm-androidtv-${{ github.ref_name }}-release.apk
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

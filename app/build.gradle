@@ -99,6 +99,28 @@ android {
         }
 
     }
+    flavorDimensions "platform"
+    productFlavors {
+        phone {
+            dimension "platform"
+            // Default flavor: unchanged applicationId, unchanged behavior.
+        }
+        tv {
+            dimension "platform"
+            applicationIdSuffix ".tv"
+            versionNameSuffix "-tv"
+        }
+    }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def flavor = variant.flavorName // "phone" or "tv"
+            def buildType = variant.buildType.name // "debug" / "beta" / "release"
+            def baseName = flavor == "tv" ? "PocketCosmosLevi-arm-androidtv" : "PocketCosmosLevi"
+            outputFileName = "${baseName}-${buildType}.apk"
+        }
+    }
+
     packagingOptions {
         jniLibs.useLegacyPackaging = true
         doNotStrip "**/*.so"
