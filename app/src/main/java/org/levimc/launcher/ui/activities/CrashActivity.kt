@@ -55,12 +55,54 @@ class CrashActivity : BaseActivity() {
             shareLogFile()
         }
 
-        Handler(Looper.getMainLooper()).postDelayed({
-            loadCrashDetails(tvDetails, crashType, summary)
-        }, 100)
+        val path = logPath
+        if (!path.isNullOrBlank()) {
+            waitForStableLogFile(path) {
+                loadCrashDetails(tvDetails, crashType, summary)
+            }
+        } else {
+            Handler(Looper.getMainLooper()).postDelayed({
+                loadCrashDetails(tvDetails, crashType, summary)
+            }, 300)
+        }
         Handler(Looper.getMainLooper()).postDelayed({
             CrashReporter.sendUnsentReports()
         }, 2000)
+    }
+
+    /**
+     * xCrash writes native crash tombstones asynchronously (unwinding + symbolizing
+     * a deep native stack takes real time, especially with this app's amount of
+     * native code). Reading the file after a short fixed delay can catch it mid-write
+     * or before it exists at all, producing an empty/0-byte read. Poll until the
+     * file's size stops growing (or we hit a generous timeout) before reading it.
+     */
+    private fun waitForStableLogFile(path: String, onReady: () -> Unit) {
+        val file = File(path)
+        var lastSize = -1L
+        var stableCount = 0
+        val maxAttempts = 30 // ~9s total at 300ms/attempt
+        var attempts = 0
+        val handler = Handler(Looper.getMainLooper())
+        val check = object : Runnable {
+            override fun run() {
+                if (isFinishing || isDestroyed) return
+                attempts++
+                val size = if (file.exists()) file.length() else -1L
+                if (size > 0 && size == lastSize) {
+                    stableCount++
+                } else {
+                    stableCount = 0
+                }
+                lastSize = size
+                if (stableCount >= 2 || attempts >= maxAttempts) {
+                    onReady()
+                } else {
+                    handler.postDelayed(this, 300)
+                }
+            }
+        }
+        handler.post(check)
     }
 
     override fun shouldSkipNavBar(): Boolean = true
@@ -136,8 +178,21 @@ class CrashActivity : BaseActivity() {
 
     private fun shareLogFile() {
         val path = logPath ?: return
+        val logFile = File(path)
+        if (!logFile.exists() || logFile.length() == 0L) {
+            // xCrash may still be writing this asynchronously; wait for it to
+            // stabilize instead of sharing an empty/partial file.
+            android.widget.Toast.makeText(
+                this, getString(R.string.crash_log_still_writing), android.widget.Toast.LENGTH_SHORT
+            ).show()
+            waitForStableLogFile(path) { doShareLogFile(logFile) }
+            return
+        }
+        doShareLogFile(logFile)
+    }
+
+    private fun doShareLogFile(logFile: File) {
         try {
-            val logFile = File(path)
             if (logFile.exists()) {
                 val shareFile = copyLogToShareCache(logFile)
                 val logFileUri = FileProvider.getUriForFile(
