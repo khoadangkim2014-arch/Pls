@@ -49,7 +49,7 @@ app/build/outputs/logs/manifest-merger-tv-release-report.txt
 app/build/outputs/logs/manifest-merger-tv-beta-report.txt
 app/build/outputs/logs/manifest-merger-phone-beta-report.txt
 === full build_error.log line count ===
-805 /tmp/build_error.log
+807 /tmp/build_error.log
 === first 150 lines (where the actual error usually is) ===
 Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
 .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
@@ -92,33 +92,33 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:copyDebugJniLibsProjectOnly
 > Task :app:dataBindingMergeDependencyArtifactsPhoneDebug
 > Task :app:generatePhoneDebugResValues
-> Task :app:generatePhoneDebugResources
 > Task :app:mergePhoneDebugNativeLibs
+> Task :app:generatePhoneDebugResources
 > Task :minecraft:generateDebugResValues
 > Task :minecraft:generateDebugResources
 > Task :app:stripPhoneDebugDebugSymbols
 > Task :minecraft:packageDebugResources
 > Task :pojav_controls:generateDebugResValues
-> Task :pojav_controls:generateDebugResources
 > Task :app:extractPhoneDebugNativeDebugMetadata
-> Task :pojav_controls:packageDebugResources
+> Task :pojav_controls:generateDebugResources
 > Task :app:mergePhoneDebugNativeDebugMetadata NO-SOURCE
-> Task :app:mergePhoneDebugResources
+> Task :pojav_controls:packageDebugResources
 > Task :app:packagePhoneDebugResources
 > Task :minecraft:processDebugNavigationResources
 > Task :pojav_controls:processDebugNavigationResources
 > Task :app:processPhoneDebugNavigationResources
+> Task :app:mergePhoneDebugResources
 > Task :minecraft:parseDebugLocalResources
+> Task :app:parsePhoneDebugLocalResources
 > Task :minecraft:generateDebugRFile
 > Task :pojav_controls:parseDebugLocalResources
-> Task :app:parsePhoneDebugLocalResources
-> Task :pojav_controls:generateDebugRFile
 > Task :app:generatePhoneDebugBuildConfig
-> Task :app:dataBindingGenBaseClassesPhoneDebug
+> Task :pojav_controls:generateDebugRFile
 > Task :minecraft:writeDebugAarMetadata
+> Task :app:dataBindingGenBaseClassesPhoneDebug
 > Task :pojav_controls:writeDebugAarMetadata
-> Task :app:checkPhoneDebugAarMetadata
 > Task :app:compilePhoneDebugNavigationResources
+> Task :app:checkPhoneDebugAarMetadata
 > Task :app:mapPhoneDebugSourceSetPaths
 > Task :app:createPhoneDebugCompatibleScreenManifests
 > Task :app:extractDeepLinksPhoneDebug
@@ -155,6 +155,7 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :app:mergePhoneDebugShaders
 > Task :app:compilePhoneDebugShaders NO-SOURCE
 > Task :app:generatePhoneDebugAssets UP-TO-DATE
+> Task :minecraft:bundleLibCompileToJarDebug
 > Task :minecraft:mergeDebugShaders
 > Task :minecraft:compileDebugShaders NO-SOURCE
 > Task :minecraft:generateDebugAssets UP-TO-DATE
@@ -162,7 +163,6 @@ Note: Recompile with -Xlint:unchecked for details.
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
-> Task :minecraft:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugAssets
 > Task :app:mergePhoneDebugAssets
 > Task :app:compressPhoneDebugAssets
