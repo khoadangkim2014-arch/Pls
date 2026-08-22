@@ -26,7 +26,7 @@ public class ThemeManager {
     }
 
     public void setThemeMode(int mode) {
-        int previous = prefs.getInt(THEME_MODE_KEY, MODE_FOLLOW_SYSTEM);
+        int previous = prefs.getInt(THEME_MODE_KEY, MODE_DARK);
         prefs.edit().putInt(THEME_MODE_KEY, mode).apply();
         updateNightMode();
         if (previous != mode) {
@@ -38,7 +38,7 @@ public class ThemeManager {
     }
 
     private void updateNightMode() {
-        int mode = prefs.getInt(THEME_MODE_KEY, MODE_FOLLOW_SYSTEM);
+        int mode = prefs.getInt(THEME_MODE_KEY, MODE_DARK);
         switch (mode) {
             case MODE_LIGHT:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -52,7 +52,7 @@ public class ThemeManager {
     }
 
     public int getCurrentMode() {
-        int mode = prefs.getInt(THEME_MODE_KEY, MODE_FOLLOW_SYSTEM);
+        int mode = prefs.getInt(THEME_MODE_KEY, MODE_DARK);
         if (mode < MODE_FOLLOW_SYSTEM || mode > MODE_DARK) {
             mode = MODE_FOLLOW_SYSTEM;
             prefs.edit().putInt(THEME_MODE_KEY, mode).apply();

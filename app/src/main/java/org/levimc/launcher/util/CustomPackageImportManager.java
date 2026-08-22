@@ -131,6 +131,7 @@ public class CustomPackageImportManager {
         Executors.newSingleThreadExecutor().execute(() -> {
             List<InstalledAppInfo> apps = loadLaunchableApps();
             activity.runOnUiThread(() -> {
+                if (activity.isFinishing() || activity.isDestroyed()) return;
                 progress.setVisibility(View.GONE);
                 if (apps.isEmpty()) {
                     emptyText.setVisibility(View.VISIBLE);

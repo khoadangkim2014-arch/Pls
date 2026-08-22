@@ -103,12 +103,19 @@ android {
     productFlavors {
         phone {
             dimension "platform"
-            // Default flavor: unchanged applicationId, unchanged behavior.
+            // Default flavor: unchanged applicationId, unchanged behavior, arm64-v8a only.
         }
         tv {
             dimension "platform"
             applicationIdSuffix ".tv"
             versionNameSuffix "-tv"
+            ndk {
+                // Some Android TV devices (especially budget/older boxes) are still
+                // 32-bit ARM. Build both ABIs for the TV edition to maximize device
+                // compatibility, since "not compatible" install errors on TV are most
+                // often an ABI mismatch rather than a uses-feature issue.
+                abiFilters 'arm64-v8a', 'armeabi-v7a'
+            }
         }
     }
 
