@@ -49,7 +49,7 @@ app/build/outputs/logs/manifest-merger-tv-release-report.txt
 app/build/outputs/logs/manifest-merger-tv-beta-report.txt
 app/build/outputs/logs/manifest-merger-phone-beta-report.txt
 === full build_error.log line count ===
-799 /tmp/build_error.log
+805 /tmp/build_error.log
 === first 150 lines (where the actual error usually is) ===
 Downloading https://services.gradle.org/distributions/gradle-8.13-bin.zip
 .............10%.............20%.............30%.............40%.............50%.............60%.............70%.............80%.............90%.............100%
@@ -93,15 +93,15 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :app:dataBindingMergeDependencyArtifactsPhoneDebug
 > Task :app:generatePhoneDebugResValues
 > Task :app:generatePhoneDebugResources
+> Task :app:mergePhoneDebugNativeLibs
 > Task :minecraft:generateDebugResValues
 > Task :minecraft:generateDebugResources
-> Task :app:mergePhoneDebugNativeLibs
+> Task :app:stripPhoneDebugDebugSymbols
 > Task :minecraft:packageDebugResources
 > Task :pojav_controls:generateDebugResValues
 > Task :pojav_controls:generateDebugResources
-> Task :pojav_controls:packageDebugResources
-> Task :app:stripPhoneDebugDebugSymbols
 > Task :app:extractPhoneDebugNativeDebugMetadata
+> Task :pojav_controls:packageDebugResources
 > Task :app:mergePhoneDebugNativeDebugMetadata NO-SOURCE
 > Task :app:mergePhoneDebugResources
 > Task :app:packagePhoneDebugResources
@@ -109,14 +109,14 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :pojav_controls:processDebugNavigationResources
 > Task :app:processPhoneDebugNavigationResources
 > Task :minecraft:parseDebugLocalResources
-> Task :app:parsePhoneDebugLocalResources
 > Task :minecraft:generateDebugRFile
-> Task :app:generatePhoneDebugBuildConfig
 > Task :pojav_controls:parseDebugLocalResources
+> Task :app:parsePhoneDebugLocalResources
+> Task :pojav_controls:generateDebugRFile
+> Task :app:generatePhoneDebugBuildConfig
+> Task :app:dataBindingGenBaseClassesPhoneDebug
 > Task :minecraft:writeDebugAarMetadata
 > Task :pojav_controls:writeDebugAarMetadata
-> Task :pojav_controls:generateDebugRFile
-> Task :app:dataBindingGenBaseClassesPhoneDebug
 > Task :app:checkPhoneDebugAarMetadata
 > Task :app:compilePhoneDebugNavigationResources
 > Task :app:mapPhoneDebugSourceSetPaths
@@ -130,16 +130,25 @@ Installing CMake 3.22.1 in /usr/local/lib/android/sdk/cmake/3.22.1
 > Task :app:processPhoneDebugMainManifest
 > Task :app:processPhoneDebugManifest
 > Task :pojav_controls:compileDebugLibraryResources
-> Task :app:processPhoneDebugManifestForPackage
 > Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
+> Task :app:processPhoneDebugManifestForPackage
+> Task :minecraft:kaptGenerateStubsDebugKotlin
 > Task :app:processPhoneDebugResources
 > Task :minecraft:javaPreCompileDebug
 > Task :pojav_controls:javaPreCompileDebug
-> Task :minecraft:kaptGenerateStubsDebugKotlin
+> Task :minecraft:kaptDebugKotlin
 
 > Task :pojav_controls:compileDebugJavaWithJavac
 Note: /home/runner/work/Pls/Pls/pojav_controls/src/main/java/org/levimc/pojavcontrols/PojavControlsEditorActivity.java uses or overrides a deprecated API.
 Note: Recompile with -Xlint:deprecation for details.
+
+> Task :minecraft:compileDebugKotlin NO-SOURCE
+
+> Task :minecraft:compileDebugJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
 
 > Task :pojav_controls:bundleLibCompileToJarDebug
 > Task :app:javaPreCompilePhoneDebug
@@ -153,54 +162,45 @@ Note: Recompile with -Xlint:deprecation for details.
 > Task :pojav_controls:mergeDebugShaders
 > Task :pojav_controls:compileDebugShaders NO-SOURCE
 > Task :pojav_controls:generateDebugAssets UP-TO-DATE
+> Task :minecraft:bundleLibCompileToJarDebug
 > Task :pojav_controls:mergeDebugAssets
 > Task :app:mergePhoneDebugAssets
 > Task :app:compressPhoneDebugAssets
 > Task :app:checkPhoneDebugDuplicateClasses
 > Task :app:desugarPhoneDebugFileDependencies
-> Task :minecraft:kaptDebugKotlin
-> Task :app:mergeExtDexPhoneDebug
-> Task :minecraft:compileDebugKotlin NO-SOURCE
 
-> Task :minecraft:compileDebugJavaWithJavac
-Note: Some input files use or override a deprecated API.
-Note: Recompile with -Xlint:deprecation for details.
-Note: Some input files use unchecked or unsafe operations.
-Note: Recompile with -Xlint:unchecked for details.
-
-> Task :minecraft:bundleLibCompileToJarDebug
-> Task :minecraft:bundleLibRuntimeToDirDebug
-> Task :pojav_controls:bundleLibRuntimeToDirDebug
-> Task :app:mergeLibDexPhoneDebug
-> Task :minecraft:bundleLibRuntimeToJarDebug
-> Task :pojav_controls:bundleLibRuntimeToJarDebug
-> Task :minecraft:processDebugJavaRes
-> Task :pojav_controls:processDebugJavaRes NO-SOURCE
-> Task :app:validateSigningPhoneDebug
-> Task :app:writePhoneDebugAppMetadata
-> Task :app:writePhoneDebugSigningConfigVersions
-> Task :app:mergeTvDebugJniLibFolders
-> Task :app:mergeTvDebugNativeLibs
-> Task :app:stripTvDebugDebugSymbols
-> Task :app:extractTvDebugNativeDebugMetadata
-> Task :app:mergeTvDebugNativeDebugMetadata NO-SOURCE
-> Task :app:dataBindingMergeDependencyArtifactsTvDebug
-> Task :app:generateTvDebugResValues
-> Task :app:generateTvDebugResources
-> Task :app:mergeTvDebugResources
-> Task :app:packageTvDebugResources
-> Task :app:processTvDebugNavigationResources
-> Task :app:parseTvDebugLocalResources
-> Task :app:dataBindingGenBaseClassesTvDebug
-> Task :app:generateTvDebugBuildConfig
-> Task :app:checkTvDebugAarMetadata
-> Task :app:compileTvDebugNavigationResources
-> Task :app:mapTvDebugSourceSetPaths
-> Task :app:createTvDebugCompatibleScreenManifests
-> Task :app:extractDeepLinksTvDebug
-> Task :app:processTvDebugMainManifest
-> Task :app:processTvDebugManifest
-> Task :app:processTvDebugManifestForPackage
+> Task :app:compilePhoneDebugKotlin
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:421:47 'fun newInstance(): AssetManager!' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/GamePackageManager.kt:629:49 'constructor(p0: AssetManager!, p1: DisplayMetrics!, p2: Configuration!): Resources' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftActivity.kt:515:36 'fun toggleSoftInput(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftActivity.kt:515:71 'static field SHOW_FORCED: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:62:26 'fun setOnSystemUiVisibilityChangeListener(p0: View.OnSystemUiVisibilityChangeListener!): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:279:9 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:281:9 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:309:18 This declaration overrides a deprecated member but is not marked as deprecated itself. Add the '@Deprecated' annotation or suppress the diagnostic.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:332:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:333:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:334:16 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:337:20 'var isStatusBarContrastEnforced: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:342:20 'fun setDecorFitsSystemWindows(p0: Boolean): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:350:19 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:351:18 'static field SYSTEM_UI_FLAG_IMMERSIVE_STICKY: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:352:22 'static field SYSTEM_UI_FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:353:22 'static field SYSTEM_UI_FLAG_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:354:22 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:355:22 'static field SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftLoadingActivity.kt:356:22 'static field SYSTEM_UI_FLAG_LAYOUT_STABLE: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:101:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:147:17 'fun overridePendingTransition(p0: Int, p1: Int): Unit' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:169:52 'static field FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:170:16 'var statusBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:171:16 'var navigationBarColor: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:173:20 'var isStatusBarContrastEnforced: Boolean' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:176:26 'var systemUiVisibility: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:177:18 'static field SYSTEM_UI_FLAG_IMMERSIVE_STICKY: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:178:22 'static field SYSTEM_UI_FLAG_FULLSCREEN: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:179:22 'static field SYSTEM_UI_FLAG_HIDE_NAVIGATION: Int' is deprecated. Deprecated in Java.
+w: file:///home/runner/work/Pls/Pls/app/src/main/java/org/levimc/launcher/core/minecraft/MinecraftProcessRestarter.kt:180:22 'static field SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN: Int' is deprecated. Deprecated in Java.
 === lines containing Exception/Caused by/error ===
 38:> Task :app:checkKotlinGradlePluginConfigurationErrors SKIPPED
-81:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
+80:> Task :minecraft:checkKotlinGradlePluginConfigurationErrors SKIPPED
